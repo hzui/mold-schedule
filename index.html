@@ -1,0 +1,1311 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>模具制造工艺流程跟踪系统</title>
+    <!-- 生产环境使用基础CDN链接 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 配置所需插件 -->
+    <script>
+        tailwind.config = {
+            plugins: [
+                require('@tailwindcss/forms'),
+                require('@tailwindcss/typography'),
+                require('@tailwindcss/aspect-ratio'),
+            ]
+        }
+    </script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/file-saver@2.0.5/dist/FileSaver.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/exceljs@4.4.0/dist/exceljs.min.js"></script>
+    
+    <!-- 配置Tailwind自定义颜色和字体 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#165DFF',
+                        success: '#27AE60',
+                        warning: '#F59E0B',
+                        danger: '#E53E3E',
+                        pending: '#94A3B8',
+                        neutral: '#64748B',
+                        light: '#F8FAFC',
+                        dark: '#1E293B'
+                    },
+                    fontFamily: {
+                        inter: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .card-shadow {
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            }
+            .transition-bg {
+                transition: background-color 0.3s ease;
+            }
+            .transition-transform {
+                transition: transform 0.2s ease;
+            }
+            .hover-lift:hover {
+                transform: translateY(-2px);
+            }
+            .process-name-col {
+                width: 150px;
+                min-width: 150px;
+            }
+            .date-col {
+                width: 75px;
+                min-width: 75px;
+            }
+            .plan-days-col, .actual-days-col {
+                width: 80px;
+                min-width: 80px;
+            }
+            .remark-col {
+                min-width: 140px;
+            }
+            .serial-number-col {
+                width: 50px;
+                min-width: 50px;
+            }
+            .status-col {
+                width: 85px;
+                min-width: 85px;
+            }
+            .action-col {
+                width: 90px;
+                min-width: 90px;
+            }
+            .status-badge {
+                transition: all 0.2s ease;
+            }
+            .status-badge:hover {
+                transform: scale(1.05);
+            }
+            input[type="date"] {
+                position: relative;
+                &::-webkit-calendar-picker-indicator {
+                    background: transparent;
+                    padding: 0;
+                    position: absolute;
+                    right: 5px;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    cursor: pointer;
+                }
+            }
+            .date-picker-wrapper {
+                position: relative;
+            }
+            .date-picker-icon {
+                position: absolute;
+                right: 8px;
+                top: 50%;
+                transform: translateY(-50%);
+                pointer-events: none;
+                color: #64748B;
+            }
+            .stat-card {
+                background: linear-gradient(135deg, #f5f7fa 0%, #e4eaf1 100%);
+            }
+        }
+    </style>
+</head>
+<body class="font-inter bg-gray-50 text-dark">
+    <!-- 顶部导航栏 -->
+    <header class="bg-primary text-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4 flex flex-col items-center text-center">
+            <div class="mb-2">
+                <h1 class="text-2xl md:text-[clamp(1.5rem,3vw,2.2rem)] font-bold tracking-tight">模具制造工艺流程跟踪系统</h1>
+            </div>
+            <p class="text-sm md:text-base opacity-90 max-w-md">
+                实时监控生产进度 · 优化制造流程 · 提升生产效率
+            </p>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-6">
+        <!-- 模具基本信息卡片 -->
+        <section class="mb-8 bg-white rounded-xl p-5 card-shadow transition-all duration-300 hover:shadow-lg">
+            <h2 class="text-lg md:text-xl font-semibold mb-4 pb-2 border-b border-gray-100 flex items-center">
+                <i class="fa fa-info-circle text-primary mr-2"></i>模具基本信息
+            </h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
+                <!-- 第一行：5个输入项 -->
+                <div class="form-group">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">模具编号</label>
+                    <input type="text" id="moldNumber" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all">
+                </div>
+                
+                <div class="form-group">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">模具名称</label>
+                    <input type="text" id="moldName" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all">
+                </div>
+                
+                <div class="form-group">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">模具类型</label>
+                    <input type="text" id="moldType" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all">
+                </div>
+                
+                <div class="form-group">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">版本号</label>
+                    <input type="text" id="version" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all">
+                </div>
+                
+                <div class="form-group">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">产品名称</label>
+                    <input type="text" id="productName" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all">
+                </div>
+                
+                <!-- 第二行：5个输入项 -->
+                <div class="form-group">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">材料</label>
+                    <input type="text" id="material" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all">
+                </div>
+                
+                <div class="form-group">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">穴数</label>
+                    <input type="number" id="cavityCount" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all">
+                </div>
+                
+                <div class="form-group">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">开模通知</label>
+                    <div class="date-picker-wrapper">
+                        <input type="date" id="moldOpenNotice" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all pr-8">
+                        <i class="fa fa-calendar date-picker-icon"></i>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">试模日期</label>
+                    <div class="date-picker-wrapper">
+                        <input type="date" id="testDate" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all pr-8">
+                        <i class="fa fa-calendar date-picker-icon"></i>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">备注</label>
+                    <textarea id="moldRemark" rows="1" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all" placeholder="输入其他信息..."></textarea>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 功能按钮区 -->
+        <section class="mb-6 flex flex-wrap justify-center gap-3">
+            <button id="saveBtn" class="flex items-center px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-all shadow hover:shadow-md hover-lift">
+                <i class="fa fa-save mr-2"></i>保存数据
+            </button>
+            <button id="exportBtn" class="flex items-center px-4 py-2 bg-success text-white rounded-lg hover:bg-success/90 transition-all shadow hover:shadow-md hover-lift">
+                <i class="fa fa-file-excel-o mr-2"></i>导出Excel
+            </button>
+            <button id="clearBtn" class="flex items-center px-4 py-2 bg-neutral text-white rounded-lg hover:bg-neutral/90 transition-all shadow hover:shadow-md hover-lift">
+                <i class="fa fa-trash mr-2"></i>清空数据
+            </button>
+            <button id="initBtn" class="flex items-center px-4 py-2 bg-warning text-white rounded-lg hover:bg-warning/90 transition-all shadow hover:shadow-md hover-lift">
+                <i class="fa fa-refresh mr-2"></i>初始化流程
+            </button>
+            <button id="addBtn" class="flex items-center px-4 py-2 bg-primary/80 text-white rounded-lg hover:bg-primary transition-all shadow hover:shadow-md hover-lift">
+                <i class="fa fa-plus mr-2"></i>添加工序
+            </button>
+        </section>
+        
+        <!-- 周期统计卡片 -->
+        <section class="mb-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="stat-card rounded-xl p-4 border border-gray-200 shadow-sm">
+                <h3 class="text-sm font-medium text-gray-500 mb-1">总计划周期</h3>
+                <div class="flex items-baseline">
+                    <span id="totalPlanDays" class="text-2xl font-bold text-primary">0</span>
+                    <span class="ml-1 text-gray-600">天</span>
+                </div>
+                <div class="mt-2 text-xs text-gray-500">
+                    <i class="fa fa-info-circle mr-1"></i>从第一个工序计划开始到最后一个工序计划结束的总天数
+                </div>
+            </div>
+            <div class="stat-card rounded-xl p-4 border border-gray-200 shadow-sm">
+                <h3 class="text-sm font-medium text-gray-500 mb-1">总实际周期</h3>
+                <div class="flex items-baseline">
+                    <span id="totalActualDays" class="text-2xl font-bold text-success">0</span>
+                    <span class="ml-1 text-gray-600">天</span>
+                </div>
+                <div class="mt-2 text-xs text-gray-500">
+                    <i class="fa fa-info-circle mr-1"></i>从第一个工序实际开始到最后一个工序实际结束的总天数
+                </div>
+            </div>
+        </section>
+        
+        <!-- 工艺流程跟踪表 -->
+        <section class="bg-white rounded-xl p-5 card-shadow transition-all duration-300 hover:shadow-lg">
+            <h2 class="text-lg md:text-xl font-semibold mb-4 pb-2 border-b border-gray-100 flex items-center">
+                <i class="fa fa-tasks text-primary mr-2"></i>工艺流程跟踪表
+            </h2>
+            
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th scope="col" class="serial-number-col px-2 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">序号</th>
+                            <th scope="col" class="process-name-col px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">工序名称</th>
+                            <th scope="col" class="date-col px-2 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">计划开始</th>
+                            <th scope="col" class="date-col px-2 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">计划结束</th>
+                            <th scope="col" class="plan-days-col px-2 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">计划天数</th>
+                            <th scope="col" class="date-col px-2 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">实际开始</th>
+                            <th scope="col" class="date-col px-2 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">实际结束</th>
+                            <th scope="col" class="actual-days-col px-2 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">实际天数</th>
+                            <th scope="col" class="status-col px-2 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">状态</th>
+                            <th scope="col" class="remark-col px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">备注</th>
+                            <th scope="col" class="action-col px-2 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody id="processTableBody" class="bg-white divide-y divide-gray-200">
+                        <!-- 表格内容将通过JavaScript动态生成 -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="mt-4 text-sm text-gray-500 italic">
+                <i class="fa fa-info-circle mr-1"></i>操作提示：点击状态标签可切换工序状态，修改日期或天数会自动计算关联值（包含周末）
+            </div>
+        </section>
+    </main>
+    
+    <!-- 页脚 -->
+    <footer class="bg-gray-800 text-white py-6 mt-10">
+        <div class="container mx-auto px-4 text-center">
+            <p>模具制造工艺流程跟踪系统 &copy; 2025 版权所有</p>
+            <p class="text-sm text-gray-400 mt-2">
+                <a href="https://beian.miit.gov.cn/" target="_blank" class="hover:text-primary transition-colors">
+                    ICP备案号：粤ICP备12345678号
+                </a>
+            </p>
+        </div>
+    </footer>
+    
+    <!-- 通知提示组件 -->
+    <div id="notification" class="fixed top-20 right-5 px-6 py-3 rounded-lg shadow-lg transform translate-x-full transition-transform duration-300 flex items-center z-50"></div>
+
+    <script>
+        // 全局变量
+        let processData = [];
+        let nextProcessId = 1;
+        
+        // DOM元素
+        const processTableBody = document.getElementById('processTableBody');
+        const saveBtn = document.getElementById('saveBtn');
+        const exportBtn = document.getElementById('exportBtn');
+        const clearBtn = document.getElementById('clearBtn');
+        const initBtn = document.getElementById('initBtn');
+        const addBtn = document.getElementById('addBtn');
+        const notification = document.getElementById('notification');
+        const totalPlanDaysElement = document.getElementById('totalPlanDays');
+        const totalActualDaysElement = document.getElementById('totalActualDays');
+        
+        // 状态选项
+        const statusOptions = [
+            { id: 'pending', name: '未开始', class: 'bg-pending/20 text-pending border border-pending/30' },
+            { id: 'inProgress', name: '进行中', class: 'bg-warning/20 text-warning border border-warning/30' },
+            { id: 'completed', name: '已完成', class: 'bg-success/20 text-success border border-success/30' },
+            { id: 'delayed', name: '已延迟', class: 'bg-danger/20 text-danger border border-danger/30' }
+        ];
+        
+        // 初始化
+        document.addEventListener('DOMContentLoaded', () => {
+            loadData();
+            setupEventListeners();
+            updateCycleStatistics();
+        });
+        
+        // 设置事件监听器
+        function setupEventListeners() {
+            saveBtn.addEventListener('click', saveData);
+            exportBtn.addEventListener('click', exportToExcel);
+            clearBtn.addEventListener('click', clearAllData);
+            initBtn.addEventListener('click', initializeDefaultProcesses);
+            addBtn.addEventListener('click', addNewProcess);
+            
+            // 为日期选择器添加点击事件
+            document.querySelectorAll('.date-picker-wrapper').forEach(wrapper => {
+                const input = wrapper.querySelector('input[type="date"]');
+                
+                wrapper.addEventListener('click', () => {
+                    input.showPicker();
+                });
+            });
+        }
+        
+        // 更新周期统计
+        function updateCycleStatistics() {
+            if (processData.length === 0) {
+                totalPlanDaysElement.textContent = '0';
+                totalActualDaysElement.textContent = '0';
+                return;
+            }
+            
+            // 计算计划总周期
+            const planStarts = processData.map(p => p.planStart).filter(d => d);
+            const planEnds = processData.map(p => p.planEnd).filter(d => d);
+            
+            let totalPlanDays = 0;
+            if (planStarts.length > 0 && planEnds.length > 0) {
+                const firstPlanStart = new Date(Math.min(...planStarts.map(d => new Date(d).getTime())));
+                const lastPlanEnd = new Date(Math.max(...planEnds.map(d => new Date(d).getTime())));
+                totalPlanDays = Math.ceil((lastPlanEnd - firstPlanStart) / (1000 * 3600 * 24));
+            }
+            
+            // 计算实际总周期
+            const actualStarts = processData.map(p => p.actualStart).filter(d => d);
+            const actualEnds = processData.map(p => p.actualEnd).filter(d => d);
+            
+            let totalActualDays = 0;
+            if (actualStarts.length > 0 && actualEnds.length > 0) {
+                const firstActualStart = new Date(Math.min(...actualStarts.map(d => new Date(d).getTime())));
+                const lastActualEnd = new Date(Math.max(...actualEnds.map(d => new Date(d).getTime())));
+                totalActualDays = Math.ceil((lastActualEnd - firstActualStart) / (1000 * 3600 * 24));
+            }
+            
+            // 更新显示
+            totalPlanDaysElement.textContent = totalPlanDays;
+            totalActualDaysElement.textContent = totalActualDays;
+        }
+        
+        // 加载数据
+        function loadData() {
+            const savedData = localStorage.getItem('moldTrackingData');
+            if (savedData) {
+                try {
+                    const data = JSON.parse(savedData);
+                    processData = data.processes || [];
+                    nextProcessId = data.nextId || 1;
+                    
+                    // 加载模具基本信息
+                    if (data.moldInfo) {
+                        Object.keys(data.moldInfo).forEach(key => {
+                            const element = document.getElementById(key);
+                            if (element) {
+                                element.value = data.moldInfo[key];
+                            }
+                        });
+                    }
+                    
+                    renderProcessTable();
+                    updateCycleStatistics();
+                } catch (error) {
+                    console.error('加载数据失败:', error);
+                    showNotification('加载数据失败，将初始化新数据', 'error');
+                    initializeDefaultProcesses();
+                }
+            } else {
+                initializeDefaultProcesses();
+            }
+        }
+        
+        // 保存数据
+        function saveData() {
+            // 收集模具基本信息
+            const moldInfo = {
+                moldNumber: document.getElementById('moldNumber').value,
+                moldName: document.getElementById('moldName').value,
+                moldType: document.getElementById('moldType').value,
+                version: document.getElementById('version').value,
+                productName: document.getElementById('productName').value,
+                material: document.getElementById('material').value,
+                cavityCount: document.getElementById('cavityCount').value,
+                moldOpenNotice: document.getElementById('moldOpenNotice').value,
+                testDate: document.getElementById('testDate').value,
+                moldRemark: document.getElementById('moldRemark').value
+            };
+            
+            // 保存到localStorage
+            const dataToSave = {
+                moldInfo,
+                processes: processData,
+                nextId: nextProcessId
+            };
+            
+            localStorage.setItem('moldTrackingData', JSON.stringify(dataToSave));
+            showNotification('数据保存成功', 'success');
+        }
+        
+        // 导出到Excel - 优化布局和样式
+        function exportToExcel() {
+            if (processData.length === 0) {
+                showNotification('没有工序数据可导出', 'warning');
+                return;
+            }
+            
+            // 创建工作簿
+            const workbook = new ExcelJS.Workbook();
+            workbook.creator = '模具制造系统';
+            workbook.lastModifiedBy = '系统用户';
+            workbook.created = new Date();
+            workbook.modified = new Date();
+            
+            // 添加工作表
+            const worksheet = workbook.addWorksheet('模具制造流程跟踪');
+            
+            // 定义列宽设置（移除操作列，共10列）
+            // 调整：模具编号、材料、工序名称列宽为15，其他指定列宽为10
+            const columnWidths = [5, 15, 10, 10, 10, 10, 10, 10, 10, 10];
+            worksheet.columns = columnWidths.map((width, index) => ({
+                width,
+                key: String.fromCharCode(65 + index)
+            }));
+            
+            // 添加标题行
+            const titleText = `模具制造流程跟踪表 - ${document.getElementById('moldName').value || '未命名'}`;
+            const titleRow = worksheet.addRow([titleText]);
+            titleRow.height = 35;
+            titleRow.font = { bold: true, size: 20, color: { argb: 'FF165DFF' } };
+            titleRow.alignment = { horizontal: 'center', vertical: 'middle' };
+            worksheet.mergeCells('A1:J1'); // 合并10列
+            worksheet.addRow([]).height = 10;
+            
+            // ===== 模具基本信息区域 - 两行布局 =====
+            // 基本信息组标题
+            const basicInfoHeader = worksheet.addRow(['模具基本信息']);
+            formatSectionHeader(worksheet, basicInfoHeader, 1, 10); // 改为10列
+            
+            // 第一行：模具编号、模具名称、模具类型、版本号、产品名称
+            let rowNum = worksheet.rowCount + 1;
+            const firstRow = worksheet.getRow(rowNum);
+            firstRow.height = 25;
+            
+            const firstRowItems = [
+                { label: '模具编号', id: 'moldNumber', width: 15 }, // 模具编号列宽15
+                { label: '模具名称', id: 'moldName', width: 10 },
+                { label: '模具类型', id: 'moldType', width: 10 },
+                { label: '版本号', id: 'version', width: 10 },
+                { label: '产品名称', id: 'productName', width: 10 }
+            ];
+            
+            firstRowItems.forEach((item, idx) => {
+                const cellIndex = idx * 2 + 1;
+                const value = document.getElementById(item.id).value || '';
+                
+                // 标题单元格
+                const cell = firstRow.getCell(cellIndex);
+                cell.value = `${item.label}:`;
+                cell.font = { bold: true };
+                cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFF1F5F9' } };
+                cell.border = getStandardBorder();
+                cell.alignment = { vertical: 'middle', horizontal: 'right' };
+                worksheet.getColumn(cellIndex).width = 10;
+                
+                // 信息单元格 - 模具编号使用15宽度
+                const valueCell = firstRow.getCell(cellIndex + 1);
+                valueCell.value = value;
+                valueCell.border = getStandardBorder();
+                valueCell.alignment = { vertical: 'middle', horizontal: 'left' };
+                worksheet.getColumn(cellIndex + 1).width = item.width;
+            });
+            
+            // 第二行：材料、穴数、开模通知、试模日期、备注
+            rowNum = worksheet.rowCount + 1;
+            const secondRow = worksheet.getRow(rowNum);
+            secondRow.height = 25;
+            
+            const secondRowItems = [
+                { label: '材料', id: 'material', width: 15 }, // 材料列宽15
+                { label: '穴数', id: 'cavityCount', width: 10 },
+                { label: '开模通知', id: 'moldOpenNotice', width: 10 },
+                { label: '试模日期', id: 'testDate', width: 10 },
+                { label: '备注', id: 'moldRemark', width: 10 }
+            ];
+            
+            secondRowItems.forEach((item, idx) => {
+                const cellIndex = idx * 2 + 1;
+                const value = document.getElementById(item.id).value || '';
+                
+                // 所有日期（包括开模通知）都使用不带年份的格式
+                let displayValue;
+                if (item.id.includes('Date') || item.id === 'moldOpenNotice') {
+                    displayValue = value ? formatDateWithoutYear(value) : '';
+                } else {
+                    displayValue = value;
+                }
+                
+                // 标题单元格
+                const cell = secondRow.getCell(cellIndex);
+                cell.value = `${item.label}:`;
+                cell.font = { bold: true };
+                cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFF1F5F9' } };
+                cell.border = getStandardBorder();
+                cell.alignment = { vertical: 'middle', horizontal: 'right' };
+                worksheet.getColumn(cellIndex).width = 10;
+                
+                // 信息单元格 - 材料使用15宽度
+                const valueCell = secondRow.getCell(cellIndex + 1);
+                valueCell.value = displayValue;
+                valueCell.border = getStandardBorder();
+                valueCell.alignment = { vertical: 'middle', horizontal: 'left' };
+                worksheet.getColumn(cellIndex + 1).width = item.width;
+            });
+            
+            // 添加周期统计信息
+            worksheet.addRow([]).height = 5;
+            const statsHeader = worksheet.addRow(['周期统计']);
+            formatSectionHeader(worksheet, statsHeader, 1, 10);
+            
+            const statsRow = worksheet.addRow([]);
+            statsRow.height = 25;
+            statsRow.getCell(2).value = '总计划周期';
+            statsRow.getCell(3).value = `${totalPlanDaysElement.textContent} 天`;
+            statsRow.getCell(5).value = '总实际周期';
+            statsRow.getCell(6).value = `${totalActualDaysElement.textContent} 天`;
+            
+            statsRow.eachCell(cell => {
+                if (cell.col === 2 || cell.col === 5) {
+                    cell.font = { bold: true };
+                    cell.alignment = { horizontal: 'right', vertical: 'middle' };
+                } else if (cell.col === 3 || cell.col === 6) {
+                    cell.alignment = { horizontal: 'left', vertical: 'middle' };
+                }
+                cell.border = getStandardBorder();
+            });
+            
+            // 添加工序表头（移除操作列）
+            worksheet.addRow([]).height = 5;
+            const headerRow = worksheet.addRow([
+                '序号', '工序名称', '计划开始', '计划结束', 
+                '计划天数', '实际开始', '实际结束', '实际天数', '状态', '备注'
+            ]);
+            headerRow.height = 30;
+            headerRow.eachCell(cell => {
+                cell.font = { bold: true, color: { argb: 'FFFFFFFF' } };
+                cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FF165DFF' } };
+                cell.border = {
+                    top: { style: 'medium' },
+                    left: { style: 'medium' },
+                    bottom: { style: 'medium' },
+                    right: { style: 'medium' }
+                };
+                cell.alignment = { vertical: 'middle', horizontal: 'center' };
+            });
+            
+            // 计算总计划天数和总实际天数
+            let totalPlanDays = 0;
+            let totalActualDays = 0;
+            
+            // 添加工序数据（移除操作列）
+            processData.forEach((process, index) => {
+                totalPlanDays += process.planDays ? parseInt(process.planDays) : 0;
+                totalActualDays += process.actualDays ? parseInt(process.actualDays) : 0;
+                
+                const row = worksheet.addRow([
+                    index + 1,
+                    process.name || '',
+                    process.planStart ? formatDateWithoutYear(process.planStart) : '',
+                    process.planEnd ? formatDateWithoutYear(process.planEnd) : '',
+                    process.planDays || '',
+                    process.actualStart ? formatDateWithoutYear(process.actualStart) : '',
+                    process.actualEnd ? formatDateWithoutYear(process.actualEnd) : '',
+                    process.actualDays || '',
+                    getStatusName(process.status),
+                    process.remark || ''
+                ]);
+                
+                row.height = 25;
+                
+                // 设置状态单元格样式
+                const statusCell = row.getCell(9);
+                const statusInfo = statusOptions.find(s => s.name === statusCell.value) || statusOptions[0];
+                if (statusInfo.id === 'completed') {
+                    statusCell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFE6F4EA' } };
+                } else if (statusInfo.id === 'inProgress') {
+                    statusCell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFFEF3C7' } };
+                } else if (statusInfo.id === 'delayed') {
+                    statusCell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFFEE2E2' } };
+                } else if (statusInfo.id === 'pending') {
+                    statusCell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFEEF2F7' } };
+                }
+                
+                // 设置边框和对齐方式
+                row.eachCell(cell => {
+                    cell.border = getStandardBorder();
+                    cell.alignment = { vertical: 'middle' };
+                });
+                
+                // 设置水平居中的列
+                [1, 3, 4, 5, 6, 7, 8, 9].forEach(colIndex => {
+                    row.getCell(colIndex).alignment = { ...row.getCell(colIndex).alignment, horizontal: 'center' };
+                });
+            });
+            
+            // 添加总计行
+            worksheet.addRow([]).height = 5;
+            
+            // 创建总计行
+            const totalRowNumber = worksheet.rowCount + 1;
+            const totalRow = worksheet.getRow(totalRowNumber);
+            totalRow.height = 30;
+            totalRow.values = new Array(10).fill(''); // 10列，修复多出的格子
+            
+            // 设置总计行的值
+            totalRow.getCell(2).value = '总计';
+            totalRow.getCell(5).value = totalPlanDays;
+            totalRow.getCell(8).value = totalActualDays;
+            
+            // 设置总计行样式
+            totalRow.eachCell(cell => {
+                cell.font = { bold: true, size: 12, color: { argb: 'FF0F172A' } };
+                cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFF1F5F9' } };
+                cell.border = {
+                    top: { style: 'medium', color: { argb: 'FF94A3B8' } },
+                    left: { style: 'thin' },
+                    bottom: { style: 'medium', color: { argb: 'FF94A3B8' } },
+                    right: { style: 'thin' }
+                };
+                cell.alignment = { vertical: 'middle', horizontal: cell.col === 5 || cell.col === 8 ? 'center' : 'left' };
+            });
+            
+            // 优化总计栏布局（适应10列）
+            worksheet.mergeCells(totalRowNumber, 2, totalRowNumber, 4);
+            worksheet.mergeCells(totalRowNumber, 6, totalRowNumber, 7);
+            worksheet.mergeCells(totalRowNumber, 9, totalRowNumber, 10);
+            
+            // 为总计行添加强调样式
+            const totalLabelCell = totalRow.getCell(2);
+            totalLabelCell.font = { ...totalLabelCell.font, size: 13 };
+            totalLabelCell.alignment = { ...totalLabelCell.alignment, horizontal: 'right' };
+            
+            const planDaysCell = totalRow.getCell(5);
+            planDaysCell.font = { ...planDaysCell.font, size: 13 };
+            planDaysCell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFE0F2FE' } };
+            
+            const actualDaysCell = totalRow.getCell(8);
+            actualDaysCell.font = { ...actualDaysCell.font, size: 13 };
+            actualDaysCell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFE0F2FE' } };
+            
+            totalRow.commit();
+            
+            // 设置打印选项（适应10列）
+            worksheet.pageSetup.printArea = `A1:J${worksheet.rowCount}`;
+            worksheet.pageSetup.orientation = 'landscape';
+            worksheet.pageSetup.fitToPage = true;
+            worksheet.pageSetup.fitToWidth = 1;
+            worksheet.pageSetup.fitToHeight = 0;
+            
+            // 添加页脚
+            const exportDate = formatDateWithYear(new Date().toISOString().split('T')[0]);
+            worksheet.headerFooter.footerCenter = `导出日期: ${exportDate} | 第 &P 页 / 共 &N 页`;
+            
+            // 生成Excel文件并下载
+            workbook.xlsx.writeBuffer().then(buffer => {
+                const blob = new Blob([buffer], { type: 'application/octet-stream' });
+                const fileName = `模具流程跟踪_${document.getElementById('moldNumber').value || '未知编号'}_${formatDateWithYear(new Date().toISOString().split('T')[0]).replace(/年|月|日/g, '')}.xlsx`;
+                saveAs(blob, fileName);
+                showNotification('Excel导出成功', 'success');
+            }).catch(err => {
+                console.error('导出失败:', err);
+                showNotification('Excel导出失败', 'error');
+            });
+        }
+        
+        // 格式化分组标题
+        function formatSectionHeader(worksheet, row, startCol, endCol) {
+            row.height = 25;
+            row.font = { bold: true, size: 14, color: { argb: 'FF333333' } };
+            row.alignment = { horizontal: 'center', vertical: 'middle' };
+            row.eachCell(cell => {
+                cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFE2E8F0' } };
+                cell.border = getStandardBorder();
+            });
+            worksheet.mergeCells(row.number, startCol, row.number, endCol);
+        }
+        
+        // 获取标准边框样式
+        function getStandardBorder() {
+            return {
+                top: { style: 'thin' },
+                left: { style: 'thin' },
+                bottom: { style: 'thin' },
+                right: { style: 'thin' }
+            };
+        }
+        
+        // 清空所有数据
+        function clearAllData() {
+            if (confirm('确定要清空所有数据吗？此操作不可恢复。')) {
+                // 清空模具基本信息
+                document.getElementById('moldNumber').value = '';
+                document.getElementById('moldName').value = '';
+                document.getElementById('moldType').value = '';
+                document.getElementById('version').value = '';
+                document.getElementById('productName').value = '';
+                document.getElementById('material').value = '';
+                document.getElementById('cavityCount').value = '';
+                document.getElementById('moldOpenNotice').value = '';
+                document.getElementById('testDate').value = '';
+                document.getElementById('moldRemark').value = '';
+                
+                // 清空工序数据
+                processData = [];
+                nextProcessId = 1;
+                renderProcessTable();
+                updateCycleStatistics();
+                
+                // 清除localStorage
+                localStorage.removeItem('moldTrackingData');
+                
+                showNotification('所有数据已清空', 'info');
+            }
+        }
+        
+        // 初始化默认工序
+        function initializeDefaultProcesses() {
+            if (processData.length > 0 && !confirm('确定要初始化流程吗？当前流程数据将被覆盖。')) {
+                return;
+            }
+            
+            // 获取开模通知日期作为起始日期
+            const startDate = document.getElementById('moldOpenNotice').value 
+                ? new Date(document.getElementById('moldOpenNotice').value)
+                : new Date();
+            
+            // 调整后的默认工序列表（线割加工移到精加工前面，修改了部分工序名称）
+            const defaultProcesses = [
+                { name: '设计评审', planDays: 2, remark: '' },
+                { name: '材料采购', planDays: 3, remark: '' },
+                { name: '深孔钻/铣床加工', planDays: 4, remark: '' },
+                { name: '粗加工', planDays: 5, remark: '' },
+                { name: '热处理/磨床加工', planDays: 2, remark: '' },
+                { name: '线割加工', planDays: 3, remark: '' },
+                { name: '精加工', planDays: 7, remark: '' },
+                { name: 'EDM加工', planDays: 4, remark: '' },
+                { name: '省模/抛光', planDays: 2, remark: '' },
+                { name: '配装合模', planDays: 3, remark: '' },
+                { name: '试模', planDays: 1, remark: '' }
+            ];
+            
+            processData = [];
+            let currentDate = new Date(startDate);
+            
+            defaultProcesses.forEach((process) => {
+                // 计算计划开始和结束日期
+                const planStart = formatDate(currentDate);
+                
+                // 增加计划天数（包含周末）
+                currentDate.setDate(currentDate.getDate() + process.planDays);
+                
+                const planEnd = formatDate(currentDate);
+                
+                // 添加到工序数据
+                processData.push({
+                    id: nextProcessId++,
+                    name: process.name,
+                    planStart,
+                    planEnd,
+                    planDays: process.planDays,
+                    actualStart: '',
+                    actualEnd: '',
+                    actualDays: '',
+                    status: 'pending',
+                    remark: process.remark
+                });
+            });
+            
+            renderProcessTable();
+            updateCycleStatistics();
+            showNotification('流程已初始化', 'info');
+        }
+        
+        // 添加新工序
+        function addNewProcess() {
+            // 默认将新工序添加到最后
+            const newProcess = {
+                id: nextProcessId++,
+                name: `新工序${processData.length + 1}`,
+                planStart: '',
+                planEnd: '',
+                planDays: 1,
+                actualStart: '',
+                actualEnd: '',
+                actualDays: '',
+                status: 'pending',
+                remark: ''
+            };
+            
+            processData.push(newProcess);
+            renderProcessTable();
+            updateCycleStatistics();
+            
+            // 自动聚焦到新工序的名称输入框
+            setTimeout(() => {
+                const newInput = document.querySelector(`.process-name[data-id="${newProcess.id}"]`);
+                if (newInput) {
+                    newInput.focus();
+                    newInput.select();
+                }
+            }, 100);
+            
+            showNotification('已添加新工序', 'info');
+        }
+        
+        // 渲染工序表格
+        function renderProcessTable() {
+            processTableBody.innerHTML = '';
+            
+            if (processData.length === 0) {
+                const emptyRow = document.createElement('tr');
+                emptyRow.innerHTML = `
+                    <td colspan="11" class="px-4 py-8 text-center text-gray-500">
+                        <i class="fa fa-folder-open-o text-2xl mb-2"></i>
+                        <p>暂无工序数据，请点击"初始化流程"或"添加工序"</p>
+                    </td>
+                `;
+                processTableBody.appendChild(emptyRow);
+                return;
+            }
+            
+            processData.forEach((process, index) => {
+                const row = document.createElement('tr');
+                row.className = 'hover:bg-gray-50 transition-bg';
+                row.dataset.id = process.id;
+                
+                // 获取状态样式
+                const statusInfo = statusOptions.find(s => s.id === process.status) || statusOptions[0];
+                
+                row.innerHTML = `
+                    <td class="serial-number-col px-2 py-3 whitespace-nowrap">
+                        <div class="text-sm text-gray-900 text-center">${index + 1}</div>
+                    </td>
+                    <td class="process-name-col px-3 py-3 whitespace-nowrap">
+                        <input type="text" value="${process.name || ''}" 
+                               class="process-name w-full px-2 py-1.5 border border-gray-300 rounded focus:ring-1 focus:ring-primary focus:border-primary outline-none text-sm"
+                               data-id="${process.id}"
+                               maxlength="15">
+                    </td>
+                    <td class="date-col px-2 py-3 whitespace-nowrap">
+                        <div class="date-picker-wrapper">
+                            <input type="date" value="${process.planStart || ''}" 
+                                   class="plan-start w-full px-2 py-1.5 border border-gray-300 rounded focus:ring-1 focus:ring-primary focus:border-primary outline-none text-sm pr-8"
+                                   data-id="${process.id}"
+                                   onchange="updateCycleStatistics()">
+                            <i class="fa fa-calendar date-picker-icon"></i>
+                        </div>
+                    </td>
+                    <td class="date-col px-2 py-3 whitespace-nowrap">
+                        <div class="date-picker-wrapper">
+                            <input type="date" value="${process.planEnd || ''}" 
+                                   class="plan-end w-full px-2 py-1.5 border border-gray-300 rounded focus:ring-1 focus:ring-primary focus:border-primary outline-none text-sm pr-8"
+                                   data-id="${process.id}"
+                                   onchange="updateCycleStatistics()">
+                            <i class="fa fa-calendar date-picker-icon"></i>
+                        </div>
+                    </td>
+                    <td class="plan-days-col px-2 py-3 whitespace-nowrap">
+                        <input type="number" min="1" value="${process.planDays || 1}" 
+                               class="plan-days w-full px-2 py-1.5 border border-gray-300 rounded focus:ring-1 focus:ring-primary focus:border-primary outline-none text-center text-sm"
+                               data-id="${process.id}"
+                               onchange="updateCycleStatistics()">
+                    </td>
+                    <td class="date-col px-2 py-3 whitespace-nowrap">
+                        <div class="date-picker-wrapper">
+                            <input type="date" value="${process.actualStart || ''}" 
+                                   class="actual-start w-full px-2 py-1.5 border border-gray-300 rounded focus:ring-1 focus:ring-primary focus:border-primary outline-none text-sm pr-8"
+                                   data-id="${process.id}"
+                                   onchange="updateCycleStatistics()">
+                            <i class="fa fa-calendar date-picker-icon"></i>
+                        </div>
+                    </td>
+                    <td class="date-col px-2 py-3 whitespace-nowrap">
+                        <div class="date-picker-wrapper">
+                            <input type="date" value="${process.actualEnd || ''}" 
+                                   class="actual-end w-full px-2 py-1.5 border border-gray-300 rounded focus:ring-1 focus:ring-primary focus:border-primary outline-none text-sm pr-8"
+                                   data-id="${process.id}"
+                                   onchange="updateCycleStatistics()">
+                            <i class="fa fa-calendar date-picker-icon"></i>
+                        </div>
+                    </td>
+                    <td class="actual-days-col px-2 py-3 whitespace-nowrap">
+                        <input type="number" min="0" value="${process.actualDays || ''}" 
+                               class="actual-days w-full px-2 py-1.5 border border-gray-300 rounded focus:ring-1 focus:ring-primary focus:border-primary outline-none text-center text-sm"
+                               data-id="${process.id}"
+                               onchange="updateCycleStatistics()">
+                    </td>
+                    <td class="status-col px-2 py-3 whitespace-nowrap">
+                        <span class="status-badge inline-flex px-2 py-1 text-xs font-semibold rounded-full ${statusInfo.class} cursor-pointer border"
+                              data-id="${process.id}" data-current="${process.status}">
+                            ${statusInfo.name}
+                        </span>
+                    </td>
+                    <td class="remark-col px-3 py-3 whitespace-nowrap">
+                        <input type="text" value="${process.remark || ''}" 
+                               class="remark w-full px-2 py-1.5 border border-gray-300 rounded focus:ring-1 focus:ring-primary focus:border-primary outline-none text-sm"
+                               data-id="${process.id}"
+                               placeholder="备注">
+                    </td>
+                    <td class="action-col px-2 py-3 whitespace-nowrap text-sm font-medium text-center">
+                        <button class="delete-process text-danger hover:text-danger/80 mr-1 p-1" data-id="${process.id}" title="删除">
+                            <i class="fa fa-trash-o"></i>
+                        </button>
+                        <button class="move-up text-gray-500 hover:text-primary mr-1 p-1" data-id="${process.id}" title="上移">
+                            <i class="fa fa-arrow-up"></i>
+                        </button>
+                        <button class="move-down text-gray-500 hover:text-primary p-1" data-id="${process.id}" title="下移">
+                            <i class="fa fa-arrow-down"></i>
+                        </button>
+                    </td>
+                `;
+                
+                processTableBody.appendChild(row);
+            });
+            
+            // 添加事件监听器到动态生成的元素
+            attachProcessEvents();
+        }
+        
+        // 为工序表格元素添加事件监听器
+        function attachProcessEvents() {
+            // 工序名称输入
+            document.querySelectorAll('.process-name').forEach(input => {
+                input.addEventListener('change', e => {
+                    const processId = parseInt(e.target.dataset.id);
+                    const process = processData.find(p => p.id === processId);
+                    if (process) {
+                        process.name = e.target.value.substring(0, 15);
+                    }
+                });
+            });
+            
+            // 备注输入
+            document.querySelectorAll('.remark').forEach(input => {
+                input.addEventListener('change', e => {
+                    const processId = parseInt(e.target.dataset.id);
+                    const process = processData.find(p => p.id === processId);
+                    if (process) {
+                        process.remark = e.target.value;
+                    }
+                });
+            });
+            
+            // 增强日期选择器体验
+            document.querySelectorAll('.date-picker-wrapper').forEach(wrapper => {
+                const input = wrapper.querySelector('input[type="date"]');
+                
+                wrapper.addEventListener('click', () => {
+                    if (typeof input.showPicker === 'function') {
+                        input.showPicker();
+                    }
+                });
+            });
+            
+            // 计划开始日期 - 修改时自动计算计划结束日期
+            document.querySelectorAll('.plan-start').forEach(input => {
+                input.addEventListener('change', e => {
+                    const processId = parseInt(e.target.dataset.id);
+                    const process = processData.find(p => p.id === processId);
+                    if (process) {
+                        process.planStart = e.target.value;
+                        calculateAndUpdatePlanEnd(processId);
+                        updateCycleStatistics();
+                    }
+                });
+            });
+            
+            // 计划结束日期 - 修改时自动计算计划天数
+            document.querySelectorAll('.plan-end').forEach(input => {
+                input.addEventListener('change', e => {
+                    const processId = parseInt(e.target.dataset.id);
+                    const process = processData.find(p => p.id === processId);
+                    if (process) {
+                        process.planEnd = e.target.value;
+                        calculateAndUpdatePlanDays(processId);
+                        updateCycleStatistics();
+                    }
+                });
+            });
+            
+            // 计划天数 - 修改时自动计算计划结束日期
+            document.querySelectorAll('.plan-days').forEach(input => {
+                input.addEventListener('change', e => {
+                    const processId = parseInt(e.target.dataset.id);
+                    const process = processData.find(p => p.id === processId);
+                    if (process) {
+                        const days = parseInt(e.target.value) || 1;
+                        process.planDays = days;
+                        calculateAndUpdatePlanEnd(processId);
+                        updateCycleStatistics();
+                    }
+                });
+            });
+            
+            // 实际开始日期 - 修改时自动计算实际结束日期
+            document.querySelectorAll('.actual-start').forEach(input => {
+                input.addEventListener('change', e => {
+                    const processId = parseInt(e.target.dataset.id);
+                    const process = processData.find(p => p.id === processId);
+                    if (process) {
+                        process.actualStart = e.target.value;
+                        calculateAndUpdateActualEnd(processId);
+                        updateCycleStatistics();
+                    }
+                });
+            });
+            
+            // 实际结束日期 - 修改时自动计算实际天数
+            document.querySelectorAll('.actual-end').forEach(input => {
+                input.addEventListener('change', e => {
+                    const processId = parseInt(e.target.dataset.id);
+                    const process = processData.find(p => p.id === processId);
+                    if (process) {
+                        process.actualEnd = e.target.value;
+                        calculateAndUpdateActualDays(processId);
+                        updateCycleStatistics();
+                    }
+                });
+            });
+            
+            // 实际天数 - 修改时自动计算实际结束日期
+            document.querySelectorAll('.actual-days').forEach(input => {
+                input.addEventListener('change', e => {
+                    const processId = parseInt(e.target.dataset.id);
+                    const process = processData.find(p => p.id === processId);
+                    if (process) {
+                        const days = parseInt(e.target.value) || 0;
+                        process.actualDays = days;
+                        calculateAndUpdateActualEnd(processId);
+                        updateCycleStatistics();
+                    }
+                });
+            });
+            
+            // 状态标签点击切换
+            document.querySelectorAll('.status-badge').forEach(badge => {
+                badge.addEventListener('click', e => {
+                    const processId = parseInt(e.target.dataset.id);
+                    const currentStatus = e.target.dataset.current;
+                    const currentIndex = statusOptions.findIndex(s => s.id === currentStatus);
+                    const nextIndex = (currentIndex + 1) % statusOptions.length;
+                    const nextStatus = statusOptions[nextIndex].id;
+                    
+                    const process = processData.find(p => p.id === processId);
+                    if (process) {
+                        process.status = nextStatus;
+                        renderProcessTable();
+                    }
+                });
+            });
+            
+            // 删除工序
+            document.querySelectorAll('.delete-process').forEach(btn => {
+                btn.addEventListener('click', e => {
+                    e.stopPropagation();
+                    const processId = parseInt(e.currentTarget.dataset.id);
+                    if (confirm('确定要删除此工序吗？')) {
+                        processData = processData.filter(p => p.id !== processId);
+                        renderProcessTable();
+                        updateCycleStatistics();
+                        showNotification('工序已删除', 'info');
+                    }
+                });
+            });
+            
+            // 上移工序
+            document.querySelectorAll('.move-up').forEach(btn => {
+                btn.addEventListener('click', e => {
+                    e.stopPropagation();
+                    const processId = parseInt(e.currentTarget.dataset.id);
+                    const index = processData.findIndex(p => p.id === processId);
+                    if (index > 0) {
+                        [processData[index], processData[index - 1]] = [processData[index - 1], processData[index]];
+                        renderProcessTable();
+                        updateCycleStatistics();
+                    }
+                });
+            });
+            
+            // 下移工序
+            document.querySelectorAll('.move-down').forEach(btn => {
+                btn.addEventListener('click', e => {
+                    e.stopPropagation();
+                    const processId = parseInt(e.currentTarget.dataset.id);
+                    const index = processData.findIndex(p => p.id === processId);
+                    if (index < processData.length - 1) {
+                        [processData[index], processData[index + 1]] = [processData[index + 1], processData[index]];
+                        renderProcessTable();
+                        updateCycleStatistics();
+                    }
+                });
+            });
+        }
+        
+        // 计算并更新计划结束日期（包含周末）
+        function calculateAndUpdatePlanEnd(processId) {
+            const process = processData.find(p => p.id === processId);
+            if (!process || !process.planStart || !process.planDays || process.planDays <= 0) return;
+            
+            const startDate = new Date(process.planStart);
+            if (isNaN(startDate.getTime())) return;
+            
+            // 直接加上计划天数，包含周末
+            const endDate = new Date(startDate);
+            endDate.setDate(endDate.getDate() + process.planDays);
+            
+            const formattedEndDate = formatDate(endDate);
+            process.planEnd = formattedEndDate;
+            
+            // 直接更新输入框
+            const endInput = document.querySelector(`.plan-end[data-id="${processId}"]`);
+            if (endInput && endInput.value !== formattedEndDate) {
+                endInput.value = formattedEndDate;
+            }
+        }
+        
+        // 计算并更新计划天数（包含周末）
+        function calculateAndUpdatePlanDays(processId) {
+            const process = processData.find(p => p.id === processId);
+            if (!process || !process.planStart || !process.planEnd) return;
+            
+            const startDate = new Date(process.planStart);
+            const endDate = new Date(process.planEnd);
+            
+            if (isNaN(startDate.getTime()) || isNaN(endDate.getTime()) || startDate > endDate) return;
+            
+            // 计算天数差（包含周末）
+            const timeDiff = endDate.getTime() - startDate.getTime();
+            const days = Math.ceil(timeDiff / (1000 * 3600 * 24));
+            
+            process.planDays = days;
+            
+            // 直接更新输入框
+            const daysInput = document.querySelector(`.plan-days[data-id="${processId}"]`);
+            if (daysInput && parseInt(daysInput.value) !== days) {
+                daysInput.value = days;
+            }
+        }
+        
+        // 计算并更新实际结束日期（包含周末）
+        function calculateAndUpdateActualEnd(processId) {
+            const process = processData.find(p => p.id === processId);
+            if (!process || !process.actualStart || process.actualDays === undefined || process.actualDays <= 0) return;
+            
+            const startDate = new Date(process.actualStart);
+            if (isNaN(startDate.getTime())) return;
+            
+            // 直接加上实际天数，包含周末
+            const endDate = new Date(startDate);
+            endDate.setDate(endDate.getDate() + process.actualDays);
+            
+            const formattedEndDate = formatDate(endDate);
+            process.actualEnd = formattedEndDate;
+            
+            // 直接更新输入框
+            const endInput = document.querySelector(`.actual-end[data-id="${processId}"]`);
+            if (endInput && endInput.value !== formattedEndDate) {
+                endInput.value = formattedEndDate;
+            }
+        }
+        
+        // 计算并更新实际天数（包含周末）
+        function calculateAndUpdateActualDays(processId) {
+            const process = processData.find(p => p.id === processId);
+            if (!process || !process.actualStart || !process.actualEnd) return;
+            
+            const startDate = new Date(process.actualStart);
+            const endDate = new Date(process.actualEnd);
+            
+            if (isNaN(startDate.getTime()) || isNaN(endDate.getTime()) || startDate > endDate) return;
+            
+            // 计算天数差（包含周末）
+            const timeDiff = endDate.getTime() - startDate.getTime();
+            const days = Math.ceil(timeDiff / (1000 * 3600 * 24));
+            
+            process.actualDays = days;
+            
+            // 直接更新输入框
+            const daysInput = document.querySelector(`.actual-days[data-id="${processId}"]`);
+            if (daysInput && parseInt(daysInput.value) !== days) {
+                daysInput.value = days;
+            }
+        }
+        
+        // 格式化日期为YYYY-MM-DD
+        function formatDate(date) {
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        }
+        
+        // 格式化日期为X月XX日（不含年份）
+        function formatDateWithoutYear(dateStr) {
+            if (!dateStr) return '';
+            const parts = dateStr.split('-');
+            if (parts.length === 3) {
+                const month = parseInt(parts[1]);
+                const day = parseInt(parts[2]);
+                return `${month}月${day}日`;
+            }
+            return dateStr;
+        }
+        
+        // 格式化日期为YYYY年X月XX日（包含年份）
+        function formatDateWithYear(dateStr) {
+            if (!dateStr) return '';
+            const parts = dateStr.split('-');
+            if (parts.length === 3) {
+                const year = parseInt(parts[0]);
+                const month = parseInt(parts[1]);
+                const day = parseInt(parts[2]);
+                return `${year}年${month}月${day}日`;
+            }
+            return dateStr;
+        }
+        
+        // 获取状态名称
+        function getStatusName(statusId) {
+            const status = statusOptions.find(s => s.id === statusId);
+            return status ? status.name : '未知';
+        }
+        
+        // 显示通知
+        function showNotification(message, type = 'info') {
+            let bgColor, textColor, icon;
+            
+            switch (type) {
+                case 'success':
+                    bgColor = 'bg-success';
+                    textColor = 'text-white';
+                    icon = 'fa-check-circle';
+                    break;
+                case 'error':
+                    bgColor = 'bg-danger';
+                    textColor = 'text-white';
+                    icon = 'fa-exclamation-circle';
+                    break;
+                case 'warning':
+                    bgColor = 'bg-warning';
+                    textColor = 'text-white';
+                    icon = 'fa-exclamation-triangle';
+                    break;
+                default:
+                    bgColor = 'bg-primary';
+                    textColor = 'text-white';
+                    icon = 'fa-info-circle';
+            }
+            
+            notification.className = `fixed top-20 right-5 px-6 py-3 rounded-lg shadow-lg transform transition-transform duration-300 flex items-center z-50 ${bgColor} ${textColor}`;
+            notification.innerHTML = `<i class="fa ${icon} mr-2"></i>${message}`;
+            notification.style.transform = 'translateX(0)';
+            
+            setTimeout(() => {
+                notification.style.transform = 'translateX(calc(100% + 20px))';
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
+    
