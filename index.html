@@ -4,23 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>模具制造工艺流程跟踪系统</title>
-    <!-- 生产环境使用基础CDN链接 -->
+    <!-- 生产环境使用独立的Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- 配置所需插件 -->
-    <script>
-        tailwind.config = {
-            plugins: [
-                require('@tailwindcss/forms'),
-                require('@tailwindcss/typography'),
-                require('@tailwindcss/aspect-ratio'),
-            ]
-        }
-    </script>
-    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/file-saver@2.0.5/dist/FileSaver.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/exceljs@4.4.0/dist/exceljs.min.js"></script>
-    
-    <!-- 配置Tailwind自定义颜色和字体 -->
+    <!-- 移除需要require的插件配置 -->
     <script>
         tailwind.config = {
             theme: {
@@ -42,6 +28,9 @@
             }
         }
     </script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/file-saver@2.0.5/dist/FileSaver.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/exceljs@4.4.0/dist/exceljs.min.js"></script>
     
     <style type="text/tailwindcss">
         @layer utilities {
@@ -95,15 +84,15 @@
             }
             input[type="date"] {
                 position: relative;
-                &::-webkit-calendar-picker-indicator {
-                    background: transparent;
-                    padding: 0;
-                    position: absolute;
-                    right: 5px;
-                    top: 50%;
-                    transform: translateY(-50%);
-                    cursor: pointer;
-                }
+            }
+            input[type="date"]::-webkit-calendar-picker-indicator {
+                background: transparent;
+                padding: 0;
+                position: absolute;
+                right: 5px;
+                top: 50%;
+                transform: translateY(-50%);
+                cursor: pointer;
             }
             .date-picker-wrapper {
                 position: relative;
@@ -438,7 +427,7 @@
             showNotification('数据保存成功', 'success');
         }
         
-        // 导出到Excel - 优化布局和样式
+        // 导出到Excel
         function exportToExcel() {
             if (processData.length === 0) {
                 showNotification('没有工序数据可导出', 'warning');
@@ -455,8 +444,7 @@
             // 添加工作表
             const worksheet = workbook.addWorksheet('模具制造流程跟踪');
             
-            // 定义列宽设置（移除操作列，共10列）
-            // 调整：模具编号、材料、工序名称列宽为15，其他指定列宽为10
+            // 定义列宽设置
             const columnWidths = [5, 15, 10, 10, 10, 10, 10, 10, 10, 10];
             worksheet.columns = columnWidths.map((width, index) => ({
                 width,
@@ -469,13 +457,12 @@
             titleRow.height = 35;
             titleRow.font = { bold: true, size: 20, color: { argb: 'FF165DFF' } };
             titleRow.alignment = { horizontal: 'center', vertical: 'middle' };
-            worksheet.mergeCells('A1:J1'); // 合并10列
+            worksheet.mergeCells('A1:J1');
             worksheet.addRow([]).height = 10;
             
-            // ===== 模具基本信息区域 - 两行布局 =====
-            // 基本信息组标题
+            // 模具基本信息区域
             const basicInfoHeader = worksheet.addRow(['模具基本信息']);
-            formatSectionHeader(worksheet, basicInfoHeader, 1, 10); // 改为10列
+            formatSectionHeader(worksheet, basicInfoHeader, 1, 10);
             
             // 第一行：模具编号、模具名称、模具类型、版本号、产品名称
             let rowNum = worksheet.rowCount + 1;
@@ -483,7 +470,7 @@
             firstRow.height = 25;
             
             const firstRowItems = [
-                { label: '模具编号', id: 'moldNumber', width: 15 }, // 模具编号列宽15
+                { label: '模具编号', id: 'moldNumber', width: 15 },
                 { label: '模具名称', id: 'moldName', width: 10 },
                 { label: '模具类型', id: 'moldType', width: 10 },
                 { label: '版本号', id: 'version', width: 10 },
@@ -503,7 +490,7 @@
                 cell.alignment = { vertical: 'middle', horizontal: 'right' };
                 worksheet.getColumn(cellIndex).width = 10;
                 
-                // 信息单元格 - 模具编号使用15宽度
+                // 信息单元格
                 const valueCell = firstRow.getCell(cellIndex + 1);
                 valueCell.value = value;
                 valueCell.border = getStandardBorder();
@@ -517,7 +504,7 @@
             secondRow.height = 25;
             
             const secondRowItems = [
-                { label: '材料', id: 'material', width: 15 }, // 材料列宽15
+                { label: '材料', id: 'material', width: 15 },
                 { label: '穴数', id: 'cavityCount', width: 10 },
                 { label: '开模通知', id: 'moldOpenNotice', width: 10 },
                 { label: '试模日期', id: 'testDate', width: 10 },
@@ -528,7 +515,7 @@
                 const cellIndex = idx * 2 + 1;
                 const value = document.getElementById(item.id).value || '';
                 
-                // 所有日期（包括开模通知）都使用不带年份的格式
+                // 所有日期都使用不带年份的格式
                 let displayValue;
                 if (item.id.includes('Date') || item.id === 'moldOpenNotice') {
                     displayValue = value ? formatDateWithoutYear(value) : '';
@@ -545,7 +532,7 @@
                 cell.alignment = { vertical: 'middle', horizontal: 'right' };
                 worksheet.getColumn(cellIndex).width = 10;
                 
-                // 信息单元格 - 材料使用15宽度
+                // 信息单元格
                 const valueCell = secondRow.getCell(cellIndex + 1);
                 valueCell.value = displayValue;
                 valueCell.border = getStandardBorder();
@@ -575,7 +562,7 @@
                 cell.border = getStandardBorder();
             });
             
-            // 添加工序表头（移除操作列）
+            // 添加工序表头
             worksheet.addRow([]).height = 5;
             const headerRow = worksheet.addRow([
                 '序号', '工序名称', '计划开始', '计划结束', 
@@ -598,7 +585,7 @@
             let totalPlanDays = 0;
             let totalActualDays = 0;
             
-            // 添加工序数据（移除操作列）
+            // 添加工序数据
             processData.forEach((process, index) => {
                 totalPlanDays += process.planDays ? parseInt(process.planDays) : 0;
                 totalActualDays += process.actualDays ? parseInt(process.actualDays) : 0;
@@ -650,7 +637,7 @@
             const totalRowNumber = worksheet.rowCount + 1;
             const totalRow = worksheet.getRow(totalRowNumber);
             totalRow.height = 30;
-            totalRow.values = new Array(10).fill(''); // 10列，修复多出的格子
+            totalRow.values = new Array(10).fill('');
             
             // 设置总计行的值
             totalRow.getCell(2).value = '总计';
@@ -670,7 +657,7 @@
                 cell.alignment = { vertical: 'middle', horizontal: cell.col === 5 || cell.col === 8 ? 'center' : 'left' };
             });
             
-            // 优化总计栏布局（适应10列）
+            // 优化总计栏布局
             worksheet.mergeCells(totalRowNumber, 2, totalRowNumber, 4);
             worksheet.mergeCells(totalRowNumber, 6, totalRowNumber, 7);
             worksheet.mergeCells(totalRowNumber, 9, totalRowNumber, 10);
@@ -690,7 +677,7 @@
             
             totalRow.commit();
             
-            // 设置打印选项（适应10列）
+            // 设置打印选项
             worksheet.pageSetup.printArea = `A1:J${worksheet.rowCount}`;
             worksheet.pageSetup.orientation = 'landscape';
             worksheet.pageSetup.fitToPage = true;
@@ -774,7 +761,7 @@
                 ? new Date(document.getElementById('moldOpenNotice').value)
                 : new Date();
             
-            // 调整后的默认工序列表（线割加工移到精加工前面，修改了部分工序名称）
+            // 调整后的默认工序列表
             const defaultProcesses = [
                 { name: '设计评审', planDays: 2, remark: '' },
                 { name: '材料采购', planDays: 3, remark: '' },
