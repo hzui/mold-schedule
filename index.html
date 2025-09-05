@@ -106,36 +106,36 @@
             }
             /* 优化的统计卡片样式 */
             .stat-card {
-                background: linear-gradient(135deg, #f5f7fa 0%, #e4eaf1 100%);
+                background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
                 transition: all 0.3s ease;
                 position: relative;
                 overflow: hidden;
             }
             .stat-card::before {
-                content: '';
+                content: ;
                 position: absolute;
                 top: 0;
                 left: 0;
-                width: 4px;
+                width: 5px;
                 height: 100%;
-                opacity: 0;
+                opacity: 0.8;
                 transition: opacity 0.3s ease;
             }
             .stat-card.primary::before {
-                background-color: #165DFF;
+                background: linear-gradient(to bottom, #165DFF, #0d4de0);
             }
             .stat-card.success::before {
-                background-color: #27AE60;
+                background: linear-gradient(to bottom, #27AE60, #219653);
             }
             .stat-card.warning::before {
-                background-color: #F59E0B;
+                background: linear-gradient(to bottom, #F59E0B, #d97706);
             }
             .stat-card.danger::before {
-                background-color: #E53E3E;
+                background: linear-gradient(to bottom, #E53E3E, #dc2626);
             }
             .stat-card:hover {
-                transform: translateY(-5px);
-                box-shadow: 0 10px 25px rgba(22, 93, 255, 0.15);
+                transform: translateY(-3px);
+                box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
             }
             .stat-card:hover::before {
                 opacity: 1;
@@ -143,9 +143,10 @@
             .stat-value {
                 transition: all 0.5s ease-out;
                 display: inline-block;
+                letter-spacing: -0.5px;
             }
             .stat-card:hover .stat-value {
-                transform: scale(1.1);
+                transform: scale(1.05);
             }
             .stat-container {
                 position: relative;
@@ -153,31 +154,32 @@
             }
             .floating-bg {
                 position: absolute;
-                width: 120px;
-                height: 120px;
+                width: 150px;
+                height: 150px;
                 border-radius: 50%;
-                background-color: rgba(22, 93, 255, 0.05);
-                top: -60px;
-                right: -60px;
+                background-color: rgba(22, 93, 255, 0.08);
+                top: -75px;
+                right: -75px;
                 transition: all 0.5s ease;
             }
             .stat-card:hover .floating-bg {
-                transform: scale(2);
+                transform: scale(1.8);
             }
             .stat-card.success .floating-bg {
-                background-color: rgba(39, 174, 96, 0.05);
+                background-color: rgba(39, 174, 96, 0.08);
             }
             .stat-card.warning .floating-bg {
-                background-color: rgba(245, 158, 11, 0.05);
+                background-color: rgba(245, 158, 11, 0.08);
             }
             .stat-card.danger .floating-bg {
-                background-color: rgba(229, 62, 62, 0.05);
+                background-color: rgba(229, 62, 62, 0.08);
             }
             .stat-trend {
                 font-size: 0.75rem;
                 display: flex;
                 align-items: center;
-                margin-top: 4px;
+                margin-top: 2px;
+                font-weight: 500;
             }
             .trend-up {
                 color: #E53E3E;
@@ -303,39 +305,48 @@
             </button>
         </section>
         
-        <!-- 周期统计卡片 - 只保留总计划周期和总实际周期 -->
+        <!-- 优化的周期统计卡片 -->
         <section class="mb-8">
             <div class="w-full">
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div class="stat-card primary rounded-xl p-5 border border-gray-200 shadow-sm relative overflow-hidden">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <!-- 总计划周期卡片 -->
+                    <div class="stat-card primary rounded-2xl p-6 border border-gray-200 shadow-lg relative overflow-hidden transition-all duration-300 hover:shadow-xl">
                         <div class="floating-bg"></div>
-                        <div class="stat-container relative z-10">
-                            <h3 class="text-sm font-medium text-gray-500 mb-1 flex items-center">
-                                <i class="fa fa-clock-o mr-2"></i>总计划周期
-                            </h3>
-                            <div class="flex items-baseline mb-2">
-                                <span id="totalPlanDays" class="stat-value text-2xl font-bold text-primary">0</span>
-                                <span class="ml-1 text-gray-600">天</span>
+                        <div class="stat-container relative z-10 flex items-center">
+                            <div class="flex-shrink-0 w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mr-4">
+                                <i class="fa fa-clock-o text-primary text-xl"></i>
                             </div>
-                            <div id="planTrend" class="stat-trend">
-                                <i class="fa fa-arrow-right mr-1"></i>
-                                <span>预计完成日期待定</span>
+                            <div class="flex-grow">
+                                <h3 class="text-sm font-semibold text-gray-600 mb-1">总计划周期</h3>
+                                <div class="flex items-baseline mb-1">
+                                    <span id="totalPlanDays" class="stat-value text-3xl font-bold text-primary tracking-tight">0</span>
+                                    <span class="ml-2 text-gray-500 font-medium">天</span>
+                                </div>
+                                <div id="planTrend" class="stat-trend text-xs text-gray-500 flex items-center mt-1">
+                                    <i class="fa fa-calendar mr-1 text-primary/70"></i>
+                                    <span>预计完成日期待定</span>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="stat-card success rounded-xl p-5 border border-gray-200 shadow-sm relative overflow-hidden">
+                    
+                    <!-- 总实际周期卡片 -->
+                    <div class="stat-card success rounded-2xl p-6 border border-gray-200 shadow-lg relative overflow-hidden transition-all duration-300 hover:shadow-xl">
                         <div class="floating-bg"></div>
-                        <div class="stat-container relative z-10">
-                            <h3 class="text-sm font-medium text-gray-500 mb-1 flex items-center">
-                                <i class="fa fa-check-square-o mr-2"></i>总实际周期
-                            </h3>
-                            <div class="flex items-baseline mb-2">
-                                <span id="totalActualDays" class="stat-value text-2xl font-bold text-success">0</span>
-                                <span class="ml-1 text-gray-600">天</span>
+                        <div class="stat-container relative z-10 flex items-center">
+                            <div class="flex-shrink-0 w-12 h-12 rounded-full bg-success/10 flex items-center justify-center mr-4">
+                                <i class="fa fa-check-circle text-success text-xl"></i>
                             </div>
-                            <div id="actualTrend" class="stat-trend">
-                                <i class="fa fa-arrow-right mr-1"></i>
-                                <span>实际进度跟踪中</span>
+                            <div class="flex-grow">
+                                <h3 class="text-sm font-semibold text-gray-600 mb-1">总实际周期</h3>
+                                <div class="flex items-baseline mb-1">
+                                    <span id="totalActualDays" class="stat-value text-3xl font-bold text-success tracking-tight">0</span>
+                                    <span class="ml-2 text-gray-500 font-medium">天</span>
+                                </div>
+                                <div id="actualTrend" class="stat-trend text-xs text-gray-500 flex items-center mt-1">
+                                    <i class="fa fa-calendar-check-o mr-1 text-success/70"></i>
+                                    <span>实际进度跟踪中</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -381,7 +392,7 @@
     <!-- 页脚 -->
     <footer class="bg-gray-800 text-white py-6 mt-10">
         <div class="container mx-auto px-4 text-center">
-            <p>模具制造工艺流程跟踪系统 &copy; 2025 版权所有</p>
+            <p>模具制造工艺流程跟踪系统 © 2025 版权所有</p>
             <p class="text-sm text-gray-400 mt-2">
                 <a href="https://beian.miit.gov.cn/" target="_blank" class="hover:text-primary transition-colors">
                     ICP备案号：粤ICP备12345678号
@@ -428,6 +439,15 @@
             loadData();
             setupEventListeners();
             updateCycleStatistics();
+            
+            // 检查初始数据中的排期冲突
+            setTimeout(() => {
+                const conflicts = checkScheduleConflicts();
+                if (conflicts.length > 0) {
+                    highlightConflicts(conflicts);
+                    showNotification(`检测到 ${conflicts.length} 处排期冲突，请检查数据`, 'warning');
+                }
+            }, 1000);
         });
         
         // 设置事件监听器
@@ -528,6 +548,35 @@
                         message: `工序 ${i+1} 实际完成日期超过计划日期`
                     });
                 }
+                
+                // 检查计划天数是否为有效值
+                if (current.planDays && current.planDays <= 0) {
+                    conflicts.push({
+                        type: 'invalid',
+                        index: i,
+                        message: `工序 ${i+1} 的计划天数必须大于0`
+                    });
+                }
+                
+                // 检查实际天数是否超过计划天数（仅对已完成工序）
+                if (current.actualDays && current.planDays && 
+                    current.actualDays > current.planDays &&
+                    current.status === 'completed') {
+                    conflicts.push({
+                        type: 'overrun',
+                        index: i,
+                        message: `工序 ${i+1} 实际天数超过计划天数`
+                    });
+                }
+            }
+            
+            // 检查第一个工序是否有计划开始日期
+            if (processData.length > 0 && !processData[0].planStart) {
+                conflicts.push({
+                    type: 'missing',
+                    index: 0,
+                    message: '第一个工序缺少计划开始日期'
+                });
             }
             
             return conflicts;
@@ -576,8 +625,11 @@
                 
                 // 计算计划结束日期（包含所有日期，不再排除周末）
                 if (currentProcess.planDays && currentProcess.planDays > 0) {
-                    // 增加计划天数（包含所有日期）
-                    currentDate.setDate(currentDate.getDate() + currentProcess.planDays);
+                    // 增加计划天数减1（因为包含当天）
+                    // 如果计划天数为1，则结束日期与开始日期相同
+                    if (currentProcess.planDays > 1) {
+                        currentDate.setDate(currentDate.getDate() + currentProcess.planDays - 1);
+                    }
                     currentProcess.planEnd = formatDate(currentDate);
                 }
             }
@@ -636,7 +688,7 @@
             animateValue(totalActualDaysElement, parseInt(totalActualDaysElement.textContent) || 0, totalActualDays, 500);
         }
         
-        // 精确计算两个日期之间的天数（包含所有日期）
+        // 精确计算两个日期之间的天数（包含开始和结束日期）
         function calculateDaysBetween(startDate, endDate) {
             // 确保日期对象有效
             if (!(startDate instanceof Date) || !(endDate instanceof Date) || isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
@@ -651,8 +703,8 @@
             // 计算时间差（毫秒）
             const timeDiff = endDate.getTime() - startDate.getTime();
             
-            // 转换为天数并向上取整
-            return Math.ceil(timeDiff / (1000 * 3600 * 24));
+            // 转换为天数并向上取整，然后加1以包含当天
+            return Math.ceil(timeDiff / (1000 * 3600 * 24)) + 1;
         }
         
         // 数字变化动画
@@ -884,7 +936,7 @@
                 totalPlanDays += planDays;
                 totalActualDays += actualDays;
                 
-                // 修复计划结束日期显示问题
+                // 确保计划结束日期正确显示
                 const planEndDate = process.planEnd ? formatDateWithoutYear(process.planEnd) : '';
                 
                 const row = worksheet.addRow([
@@ -1122,10 +1174,15 @@
                 // 计算计划开始和结束日期
                 const planStart = formatDate(currentDate);
                 
-                // 增加计划天数（包含所有日期）
-                currentDate.setDate(currentDate.getDate() + process.planDays);
+                // 创建新的日期对象以避免引用问题
+                const endDate = new Date(currentDate);
+                // 增加计划天数减1（因为包含当天）
+                // 如果计划天数为1，则结束日期与开始日期相同
+                if (process.planDays > 1) {
+                    endDate.setDate(endDate.getDate() + process.planDays - 1);
+                }
                 
-                const planEnd = formatDate(currentDate);
+                const planEnd = formatDate(endDate);
                 
                 // 添加到工序数据
                 processData.push({
@@ -1140,11 +1197,22 @@
                     status: 'pending',
                     remark: process.remark
                 });
+                
+                // 更新当前日期为下一个工序的开始日期
+                currentDate = new Date(endDate);
             });
             
             renderProcessTable();
             updateCycleStatistics();
-            showNotification('流程已初始化', 'info');
+            
+            // 检查排期冲突
+            const conflicts = checkScheduleConflicts();
+            if (conflicts.length > 0) {
+                highlightConflicts(conflicts);
+                showNotification(`检测到 ${conflicts.length} 处排期冲突`, 'warning');
+            } else {
+                showNotification('流程已初始化', 'info');
+            }
         }
         
         // 添加新工序
@@ -1171,7 +1239,11 @@
                 // 计算计划结束日期（包含所有日期）
                 if (newProcess.planStart) {
                     const startDate = new Date(newProcess.planStart);
-                    startDate.setDate(startDate.getDate() + newProcess.planDays);
+                    // 增加计划天数减1（因为包含当天）
+                    // 如果计划天数为1，则结束日期与开始日期相同
+                    if (newProcess.planDays > 1) {
+                        startDate.setDate(startDate.getDate() + newProcess.planDays - 1);
+                    }
                     newProcess.planEnd = formatDate(startDate);
                 }
             }
@@ -1353,6 +1425,13 @@
                         updateSubsequentPlans(processIndex);
                         updateCycleStatistics();
                         
+                        // 检查排期冲突
+                        const conflicts = checkScheduleConflicts();
+                        if (conflicts.length > 0) {
+                            highlightConflicts(conflicts);
+                            showNotification(`检测到 ${conflicts.length} 处排期冲突`, 'warning');
+                        }
+                        
                         // 自动重新计算
                         recalculateSchedule();
                     }
@@ -1369,10 +1448,10 @@
                         process.planEnd = e.target.value;
                         calculateAndUpdatePlanDays(processId);
                         
-                        // 修复：更新当前工序的前序工序的结束日期（如果有）
+                        // 优化：更新当前工序的前序工序的结束日期（如果有）
                         if (processIndex > 0) {
                             const prevProcess = processData[processIndex - 1];
-                            if (prevProcess && (!prevProcess.planEnd || new Date(prevProcess.planEnd) > new Date(process.planStart))) {
+                            if (prevProcess && process.planStart && (!prevProcess.planEnd || new Date(prevProcess.planEnd) > new Date(process.planStart))) {
                                 prevProcess.planEnd = process.planStart;
                                 calculateAndUpdatePlanDays(prevProcess.id);
                                 updateSubsequentPlans(processIndex - 1);
@@ -1381,6 +1460,13 @@
                         
                         updateSubsequentPlans(processIndex);
                         updateCycleStatistics();
+                        
+                        // 检查排期冲突
+                        const conflicts = checkScheduleConflicts();
+                        if (conflicts.length > 0) {
+                            highlightConflicts(conflicts);
+                            showNotification(`检测到 ${conflicts.length} 处排期冲突`, 'warning');
+                        }
                         
                         // 自动重新计算
                         recalculateSchedule();
@@ -1401,6 +1487,13 @@
                         updateSubsequentPlans(processIndex);
                         updateCycleStatistics();
                         
+                        // 检查排期冲突
+                        const conflicts = checkScheduleConflicts();
+                        if (conflicts.length > 0) {
+                            highlightConflicts(conflicts);
+                            showNotification(`检测到 ${conflicts.length} 处排期冲突`, 'warning');
+                        }
+                        
                         // 自动重新计算
                         recalculateSchedule();
                     }
@@ -1416,10 +1509,10 @@
                     if (process) {
                         process.actualStart = e.target.value;
                         
-                        // 修复：更新当前工序的前序工序的实际结束日期（如果有）
+                        // 优化：更新当前工序的前序工序的实际结束日期（如果有）
                         if (processIndex > 0) {
                             const prevProcess = processData[processIndex - 1];
-                            if (prevProcess && (!prevProcess.actualEnd || new Date(prevProcess.actualEnd) > new Date(process.actualStart))) {
+                            if (prevProcess && process.actualStart && (!prevProcess.actualEnd || new Date(prevProcess.actualEnd) > new Date(process.actualStart))) {
                                 prevProcess.actualEnd = process.actualStart;
                                 calculateAndUpdateActualDays(prevProcess.id);
                             }
@@ -1428,6 +1521,13 @@
                         calculateAndUpdateActualEnd(processId);
                         updateSubsequentActuals(processIndex);
                         updateCycleStatistics();
+                        
+                        // 检查排期冲突
+                        const conflicts = checkScheduleConflicts();
+                        if (conflicts.length > 0) {
+                            highlightConflicts(conflicts);
+                            showNotification(`检测到 ${conflicts.length} 处排期冲突`, 'warning');
+                        }
                         
                         // 自动重新计算
                         recalculateSchedule();
@@ -1447,6 +1547,13 @@
                         updateSubsequentActuals(processIndex);
                         updateCycleStatistics();
                         
+                        // 检查排期冲突
+                        const conflicts = checkScheduleConflicts();
+                        if (conflicts.length > 0) {
+                            highlightConflicts(conflicts);
+                            showNotification(`检测到 ${conflicts.length} 处排期冲突`, 'warning');
+                        }
+                        
                         // 自动重新计算
                         recalculateSchedule();
                     }
@@ -1465,6 +1572,13 @@
                         calculateAndUpdateActualEnd(processId);
                         updateSubsequentActuals(processIndex);
                         updateCycleStatistics();
+                        
+                        // 检查排期冲突
+                        const conflicts = checkScheduleConflicts();
+                        if (conflicts.length > 0) {
+                            highlightConflicts(conflicts);
+                            showNotification(`检测到 ${conflicts.length} 处排期冲突`, 'warning');
+                        }
                         
                         // 自动重新计算
                         recalculateSchedule();
@@ -1497,34 +1611,30 @@
                     const processId = parseInt(e.currentTarget.dataset.id);
                     if (confirm('确定要删除此工序吗？后续工序将自动调整。')) {
                         const processIndex = processData.findIndex(p => p.id === processId);
+                        const deletedProcess = processData.find(p => p.id === processId);
                         processData = processData.filter(p => p.id !== processId);
                         
-                        // 如果删除的不是最后一个工序，需要调整后续工序
+                        // 调整后续工序的日期
                         if (processIndex < processData.length) {
-                            // 找到前一个工序
-                            const prevProcess = processIndex > 0 ? processData[processIndex - 1] : null;
-                            // 获取下一个工序
-                            const nextProcess = processData[processIndex];
-                            
-                            // 更新下一个工序的开始日期
-                            if (prevProcess && nextProcess) {
-                                // 更新计划日期
-                                if (prevProcess.planEnd) {
-                                    nextProcess.planStart = prevProcess.planEnd;
-                                    calculateAndUpdatePlanEnd(nextProcess.id);
-                                }
-                                
-                                // 更新实际日期
-                                if (prevProcess.actualEnd) {
-                                    nextProcess.actualStart = prevProcess.actualEnd;
-                                    calculateAndUpdateActualEnd(nextProcess.id);
-                                }
-                            }
+                            // 更新后续所有工序的日期
+                            updateSubsequentPlans(processIndex - 1);
+                            updateSubsequentActuals(processIndex - 1);
                         }
                         
                         renderProcessTable();
                         updateCycleStatistics();
-                        showNotification('工序已删除，后续工序已自动调整', 'info');
+                        
+                        // 检查排期冲突
+                        const conflicts = checkScheduleConflicts();
+                        if (conflicts.length > 0) {
+                            highlightConflicts(conflicts);
+                            showNotification(`检测到 ${conflicts.length} 处排期冲突`, 'warning');
+                        } else {
+                            showNotification('工序已删除，后续工序已自动调整', 'info');
+                        }
+                        
+                        // 自动重新计算
+                        recalculateSchedule();
                     }
                 });
             });
@@ -1627,8 +1737,11 @@
             let startDate = new Date(process.planStart);
             if (isNaN(startDate.getTime())) return;
             
-            // 增加计划天数（包含所有日期）
-            startDate.setDate(startDate.getDate() + process.planDays);
+            // 增加计划天数减1（因为包含当天）
+            // 如果计划天数为1，则结束日期与开始日期相同
+            if (process.planDays > 1) {
+                startDate.setDate(startDate.getDate() + process.planDays - 1);
+            }
             
             const formattedEndDate = formatDate(startDate);
             process.planEnd = formattedEndDate;
@@ -1670,8 +1783,11 @@
             let startDate = new Date(process.actualStart);
             if (isNaN(startDate.getTime())) return;
             
-            // 增加实际天数（包含所有日期）
-            startDate.setDate(startDate.getDate() + process.actualDays);
+            // 增加实际天数减1（因为包含当天）
+            // 如果实际天数为1，则结束日期与开始日期相同
+            if (process.actualDays > 1) {
+                startDate.setDate(startDate.getDate() + process.actualDays - 1);
+            }
             
             const formattedEndDate = formatDate(startDate);
             process.actualEnd = formattedEndDate;
