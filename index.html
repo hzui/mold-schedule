@@ -199,53 +199,21 @@
             .stat-card.danger .floating-bg {
                 background-color: rgba(229, 62, 62, 0.08);
             }
-            .stat-trend {
-                font-size: 0.75rem;
-                display: flex;
-                align-items: center;
-                margin-top: 2px;
-                font-weight: 500;
-            }
-            .trend-up {
-                color: #E53E3E;
-            }
-            .trend-down {
-                color: #27AE60;
-            }
-            /* 排期冲突提示样式 */
+
+            /* 排期冲突提示样式 - 简化版 */
             .conflict-highlight {
-                animation: pulse 1.5s infinite;
+                background-color: rgba(229, 62, 62, 0.15);
             }
-            @keyframes pulse {
-                0% { background-color: rgba(229, 62, 62, 0.1); }
-                50% { background-color: rgba(229, 62, 62, 0.2); }
-                100% { background-color: rgba(229, 62, 62, 0.1); }
-            }
-            /* 现代博客风格导航样式 */
+            /* 导航样式 - 简化版 */
             .nav-btn.active {
                 background-color: #3b82f6;
                 color: white;
                 font-weight: 500;
-                box-shadow: 0 4px 12px rgba(59, 130, 246, 0.25);
-                transform: translateY(-1px);
             }
             
             .nav-btn.active:hover {
                 background-color: #2563eb;
                 color: white;
-                box-shadow: 0 6px 16px rgba(59, 130, 246, 0.3);
-                transform: translateY(-1.5px);
-            }
-            
-            /* 毛玻璃效果 */
-            .backdrop-blur-md {
-                backdrop-filter: blur(12px);
-                -webkit-backdrop-filter: blur(12px);
-            }
-            
-            /* 渐变背景 */
-            .bg-gradient-to-br {
-                background-image: linear-gradient(to bottom right, var(--tw-gradient-stops));
             }
             
             .bg-gradient-to-r {
@@ -405,240 +373,437 @@
             body {
                 min-height: 100vh;
                 display: flex;
-                background-color: #f1f5f9;
+                background: linear-gradient(135deg, #f1f5f9 0%, #f8fafc 100%);
+                font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
             }
             
-            /* 侧边栏样式 - 与表格风格协调 */
+            /* 侧边栏样式 - 简洁实用版 */
             .sidebar {
                 width: 240px;
                 min-width: 240px;
-                background: white;
-                border-right: 1px solid #e2e8f0;
+                background: #ffffff;
+                border-right: 1px solid #e5e7eb;
                 display: flex;
                 flex-direction: column;
-                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
             }
             
             .sidebar-header {
-                padding: 1.5rem 1.25rem;
-                border-bottom: 1px solid #e2e8f0;
-                background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-                position: relative;
-            }
-            
-            .sidebar-header::before {
-                content: "";
-                position: absolute;
-                bottom: 0;
-                left: 0;
-                width: 100%;
-                height: 3px;
-                background: linear-gradient(to right, #3b82f6, #2563eb);
+                padding: 20px 16px;
+                border-bottom: 1px solid #e5e7eb;
+                background: #f9fafb;
             }
             
             .sidebar-title {
-                font-size: 1.125rem;
-                font-weight: 700;
-                color: #1e293b;
+                font-size: 16px;
+                font-weight: 600;
+                color: #111827;
                 margin: 0;
-                letter-spacing: -0.025em;
+                line-height: 1.4;
             }
             
             .sidebar-subtitle {
-                font-size: 0.75rem;
-                color: #64748b;
-                margin-top: 0.25rem;
-                font-weight: 500;
+                font-size: 12px;
+                color: #6b7280;
+                margin-top: 4px;
+                font-weight: 400;
             }
             
             .sidebar-nav {
                 flex: 1;
-                padding: 1.5rem 0;
+                padding: 16px 0;
+                overflow-y: auto;
             }
             
             .nav-section {
-                margin-bottom: 1.5rem;
+                margin-bottom: 24px;
             }
             
             .nav-section-title {
-                padding: 0 1.25rem 0.5rem;
-                font-size: 0.75rem;
+                padding: 0 16px 8px;
+                font-size: 10px;
                 font-weight: 600;
-                color: #64748b;
+                color: #6b7280;
                 text-transform: uppercase;
                 letter-spacing: 0.05em;
+                display: flex;
+                align-items: center;
+                gap: 6px;
             }
             
             .sidebar-nav-item {
                 display: flex;
                 align-items: center;
                 width: 100%;
-                padding: 0.875rem 1.25rem;
+                padding: 10px 16px;
                 text-align: left;
-                color: #64748b;
-                font-size: 0.875rem;
+                color: #4b5563;
+                font-size: 14px;
                 font-weight: 500;
                 border: none;
                 background: none;
                 cursor: pointer;
-                transition: all 0.3s ease;
+                transition: all 0.15s ease;
                 border-left: 3px solid transparent;
                 position: relative;
-                margin: 0.125rem 0;
-            }
-            
-            .sidebar-nav-item::before {
-                content: '';
-                position: absolute;
-                left: 0;
-                top: 0;
-                width: 0;
-                height: 100%;
-                background: linear-gradient(135deg, #3b82f6, #2563eb);
-                transition: width 0.3s ease;
-                z-index: 1;
             }
             
             .sidebar-nav-item .nav-icon {
-                width: 20px;
-                height: 20px;
-                margin-right: 0.75rem;
+                width: 18px;
+                height: 18px;
+                margin-right: 12px;
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                border-radius: 6px;
-                background: #f1f5f9;
-                color: #64748b;
-                font-size: 0.75rem;
-                transition: all 0.3s ease;
-                position: relative;
-                z-index: 2;
+                border-radius: 4px;
+                background: #f3f4f6;
+                color: #6b7280;
+                font-size: 12px;
+                flex-shrink: 0;
             }
             
             .sidebar-nav-item .nav-text {
-                position: relative;
-                z-index: 2;
-                transition: all 0.3s ease;
+                flex: 1;
             }
             
             .sidebar-nav-item:hover {
-                background-color: #f8fafc;
-                color: #3b82f6;
-                transform: translateX(2px);
-            }
-            
-            .sidebar-nav-item:hover::before {
-                width: 3px;
+                background-color: #f3f4f6;
+                color: #374151;
             }
             
             .sidebar-nav-item:hover .nav-icon {
-                background: #dbeafe;
-                color: #3b82f6;
-                transform: scale(1.1);
+                background: #e5e7eb;
+                color: #374151;
             }
             
             .sidebar-nav-item.active {
-                background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
-                color: #1e40af;
+                background: #eff6ff;
+                color: #1d4ed8;
                 border-left-color: #3b82f6;
                 font-weight: 600;
-                transform: translateX(2px);
-            }
-            
-            .sidebar-nav-item.active::before {
-                width: 3px;
             }
             
             .sidebar-nav-item.active .nav-icon {
                 background: #3b82f6;
                 color: white;
-                transform: scale(1.1);
-                box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
             }
             
-            /* 不同功能类型的颜色区分 */
-            .nav-section.main-functions .sidebar-nav-item .nav-icon {
-                background: #dbeafe;
-                color: #3b82f6;
+            /* 功能分组样式 - 简化版 */
+            .nav-section.core-functions .nav-section-title {
+                color: #1d4ed8;
             }
             
-            .nav-section.main-functions .sidebar-nav-item:hover .nav-icon {
-                background: #3b82f6;
-                color: white;
+            .nav-section.project-operations .nav-section-title {
+                color: #059669;
             }
             
-            .nav-section.project-management .sidebar-nav-item .nav-icon {
-                background: #dcfce7;
-                color: #16a34a;
-            }
-            
-            .nav-section.project-management .sidebar-nav-item:hover .nav-icon {
-                background: #16a34a;
-                color: white;
-            }
-            
-            .nav-section.operation-tools .sidebar-nav-item .nav-icon {
-                background: #fef3c7;
+            .nav-section.edit-tools .nav-section-title {
                 color: #d97706;
             }
             
-            .nav-section.operation-tools .sidebar-nav-item:hover .nav-icon {
-                background: #d97706;
+            .nav-section.data-management .nav-section-title {
+                color: #7c3aed;
+            }
+            
+            /* 徽章和状态指示器 - 简化版 */
+            .nav-badge {
+                position: absolute;
+                top: 8px;
+                right: 12px;
+                background: #3b82f6;
                 color: white;
-            }
-            
-            .nav-section.cycle-stats .stat-icon:first-child {
-                background: #dbeafe !important;
-                color: #3b82f6 !important;
-            }
-            
-            .nav-section.cycle-stats .stat-icon:last-child {
-                background: #dcfce7 !important;
-                color: #16a34a !important;
-            }
-            
-            .sidebar-footer {
-                padding: 1rem 1.25rem;
-                border-top: 1px solid #e2e8f0;
-                background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-            }
-            
-            .sidebar-footer-text {
-                font-size: 0.75rem;
-                color: #64748b;
+                font-size: 10px;
+                font-weight: 600;
+                padding: 2px 6px;
+                border-radius: 10px;
+                min-width: 18px;
                 text-align: center;
-                line-height: 1.4;
+                line-height: 1.2;
             }
             
-            .footer-main-text {
+            .nav-status-dot {
+                position: absolute;
+                top: 12px;
+                right: 12px;
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                background: #10b981;
+            }
+            
+            .nav-status-dot.inactive {
+                background: #9ca3af;
+            }
+            
+            .nav-shortcut {
+                position: absolute;
+                top: 50%;
+                right: 12px;
+                transform: translateY(-50%);
+                font-size: 10px;
+                color: #9ca3af;
+                background: #f3f4f6;
+                padding: 2px 4px;
+                border-radius: 3px;
+                opacity: 0;
+                transition: opacity 0.2s ease;
+            }
+            
+            .sidebar-nav-item:hover .nav-shortcut {
+                opacity: 1;
+            }
+            
+            /* 统计区域样式 - 简化版 */
+            .sidebar-stats-enhanced {
+                padding: 0 16px;
+            }
+            
+            .stat-item-enhanced {
                 display: flex;
                 align-items: center;
-                justify-content: center;
-                gap: 0.5rem;
-                margin-bottom: 0.75rem;
-                font-size: 0.8rem;
-                color: #1e293b;
+                padding: 12px;
+                background: #f9fafb;
+                border-radius: 8px;
+                border: 1px solid #e5e7eb;
+                margin-bottom: 8px;
+                transition: all 0.2s ease;
             }
             
-            .footer-sub-text {
-                font-size: 0.7rem;
-                color: #64748b;
-                margin-bottom: 0.75rem;
-                line-height: 1.3;
+            .stat-item-enhanced:hover {
+                background: #f3f4f6;
+                border-color: #d1d5db;
             }
             
-            .footer-tips {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                gap: 0.4rem;
-                font-size: 0.65rem;
-                color: #94a3b8;
-                padding: 0.4rem 0.6rem;
-                background: rgba(255, 255, 255, 0.6);
+            .stat-icon-enhanced {
+                width: 32px;
+                height: 32px;
                 border-radius: 6px;
-                border: 1px solid #e2e8f0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-right: 12px;
+                font-size: 14px;
+                flex-shrink: 0;
             }
+            
+            .stat-icon-enhanced.plan-stat {
+                background: #dbeafe;
+                color: #1d4ed8;
+            }
+            
+            .stat-icon-enhanced.actual-stat {
+                background: #d1fae5;
+                color: #059669;
+            }
+            
+            .stat-icon-enhanced.progress-stat {
+                background: #e0e7ff;
+                color: #5b21b6;
+            }
+            
+            .stat-content-enhanced {
+                flex: 1;
+                min-width: 0;
+            }
+            
+            .stat-label-enhanced {
+                font-size: 11px;
+                color: #6b7280;
+                font-weight: 500;
+                margin-bottom: 2px;
+                line-height: 1.2;
+            }
+            
+            .stat-value-enhanced {
+                font-size: 16px;
+                font-weight: 600;
+                color: #111827;
+                display: flex;
+                align-items: baseline;
+                gap: 4px;
+            }
+            
+            .stat-unit {
+                font-size: 11px;
+                font-weight: 500;
+                color: #6b7280;
+            }
+            
+
+            
+
+            
+            /* 快速筛选按钮动画效果 */
+            .pulse-animation {
+                animation: pulse-orange 2s infinite;
+            }
+            
+            .urgent-pulse {
+                animation: pulse-red 1.5s infinite;
+            }
+            
+            @keyframes pulse-orange {
+                0%, 100% {
+                    box-shadow: 0 0 0 0 rgba(249, 115, 22, 0.4);
+                }
+                50% {
+                    box-shadow: 0 0 0 8px rgba(249, 115, 22, 0);
+                }
+            }
+            
+            @keyframes pulse-red {
+                0%, 100% {
+                    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4);
+                }
+                50% {
+                    box-shadow: 0 0 0 8px rgba(239, 68, 68, 0);
+                }
+            }
+            
+            /* 搜索结果提示样式 */
+            #searchResultsInfo .text-sm {
+                animation: slideInDown 0.3s ease-out;
+            }
+            
+            @keyframes slideInDown {
+                from {
+                    opacity: 0;
+                    transform: translateY(-10px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+            
+            /* 快速筛选按钮增强样式 */
+            .quick-filter {
+                position: relative;
+                overflow: hidden;
+                transition: all 0.3s ease;
+            }
+            
+            .quick-filter:hover {
+                transform: translateY(-1px);
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+            
+            .quick-filter::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+                transition: left 0.5s;
+            }
+            
+            .quick-filter:hover::before {
+                left: 100%;
+            }
+            
+            /* 筛选计数徽章样式 */
+            .quick-filter span[id$="Count"] {
+                transition: all 0.3s ease;
+                display: inline-block;
+            }
+            
+            .quick-filter span[id$="Count"]:hover {
+                transform: scale(1.1);
+            }
+            
+            /* 空状态优化 */
+            #emptyState {
+                animation: fadeIn 0.5s ease-out;
+            }
+            
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+            
+            /* 模具卡片悬停效果增强 */
+            .mold-card {
+                transition: all 0.3s ease;
+            }
+            
+            .mold-card:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            }
+            
+            /* 搜索框增强效果 */
+            #searchMolds:focus {
+                box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+                border-color: #3b82f6;
+            }
+            
+            #searchMolds:focus + .fa-search {
+                color: #3b82f6;
+            }
+            
+            /* 响应式优化 */
+            @media (max-width: 1024px) {
+                .nav-shortcut {
+                    display: none;
+                }
+                
+                .sidebar-nav-item {
+                    padding: 0.75rem 1rem;
+                }
+                
+                .stat-item-enhanced {
+                    padding: 0.75rem;
+                }
+                
+                .stat-icon-enhanced {
+                    width: 2rem;
+                    height: 2rem;
+                    margin-right: 0.75rem;
+                    font-size: 0.875rem;
+                }
+                
+                /* 移动端快速筛选优化 */
+                .quick-filter {
+                    font-size: 0.75rem;
+                    padding: 0.5rem 0.75rem;
+                }
+                
+                .quick-filter i {
+                    display: none;
+                }
+                
+                /* 移动端搜索结果信息 */
+                #searchResultsInfo {
+                    font-size: 0.75rem;
+                }
+            }
+            
+            @media (max-width: 768px) {
+                /* 移动端筛选工具栏垂直布局 */
+                .px-6.py-3 .flex.flex-wrap {
+                    flex-direction: column;
+                    align-items: stretch;
+                    gap: 0.75rem;
+                }
+                
+                .px-6.py-3 .flex.flex-wrap > div {
+                    justify-content: center;
+                }
+                
+                .px-6.py-3 .ml-auto {
+                    margin-left: 0;
+                    margin-top: 0.5rem;
+                }
+            }
+            
+
             
             /* 主内容区域 */
             .main-content {
@@ -667,7 +832,7 @@
             
             .content-header-icon {
                 width: 24px;
-                height: 24px;
+                height: 20px;
                 margin-right: 0.75rem;
                 background: #3b82f6;
                 color: white;
@@ -713,43 +878,7 @@
                 text-decoration: underline;
             }
             
-            /* 侧边栏统计样式 */
-            .sidebar-stats {
-                padding: 0 1.25rem;
-            }
-            
-            .stat-item {
-                display: flex;
-                align-items: center;
-                padding: 0.75rem 0;
-                border-bottom: 1px solid #f1f5f9;
-            }
-            
-            .stat-item:last-child {
-                border-bottom: none;
-            }
-            
-            .stat-icon {
-                width: 32px;
-                height: 32px;
-                border-radius: 8px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                margin-right: 0.75rem;
-                font-size: 0.875rem;
-                flex-shrink: 0;
-            }
-            
-            .stat-item:first-child .stat-icon {
-                background: #dbeafe;
-                color: #3b82f6;
-            }
-            
-            .stat-item:last-child .stat-icon {
-                background: #dcfce7;
-                color: #16a34a;
-            }
+
             
             .stat-content {
                 flex: 1;
@@ -772,6 +901,58 @@
             /* 确保页面内容区域有最小高度 */
             .page-content {
                 min-height: calc(100vh - 200px);
+            }
+            
+            /* 现代化卡片效果 */
+            .modern-card {
+                background: white;
+                border-radius: 16px;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+                border: 1px solid #e2e8f0;
+                transition: all 0.3s ease;
+            }
+            
+            .modern-card:hover {
+                box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+                transform: translateY(-2px);
+            }
+            
+            /* 现代化分隔线 */
+            .modern-divider {
+                height: 1px;
+                background: linear-gradient(to right, transparent, #e2e8f0, transparent);
+                margin: 16px 0;
+            }
+            
+            /* 现代化标签 */
+            .modern-tag {
+                display: inline-flex;
+                align-items: center;
+                padding: 4px 10px;
+                border-radius: 20px;
+                font-size: 12px;
+                font-weight: 600;
+                gap: 6px;
+            }
+            
+            .tag-success {
+                background: rgba(16, 185, 129, 0.15);
+                color: #059669;
+            }
+            
+            .tag-warning {
+                background: rgba(245, 158, 11, 0.15);
+                color: #d97706;
+            }
+            
+            .tag-danger {
+                background: rgba(239, 68, 68, 0.15);
+                color: #dc2626;
+            }
+            
+            .tag-info {
+                background: rgba(59, 130, 246, 0.15);
+                color: #2563eb;
             }
             
             /* 可调整列宽的表格样式 */
@@ -823,8 +1004,6 @@
                 white-space: nowrap;
             }
         }
-        
-        
     </style>
 </head>
 <body class="font-inter bg-gray-50 text-dark min-h-screen">
@@ -835,107 +1014,151 @@
             <p class="sidebar-subtitle">Mold Manufacturing Tracking</p>
         </div>
         <nav class="sidebar-nav">
-            <div class="nav-section main-functions">
-                <div class="nav-section-title">主要功能</div>
+            <!-- 核心功能区 -->
+            <div class="nav-section core-functions">
+                <div class="nav-section-title">
+                    <i class="fa fa-star text-blue-500"></i>
+                    核心功能
+                </div>
                 <button id="navManagement" class="sidebar-nav-item active">
                     <div class="nav-icon">
                         <i class="fa fa-th-large"></i>
                     </div>
                     <span class="nav-text">模具管理</span>
+                    <div class="nav-badge" id="moldCountBadge">0</div>
                 </button>
                 <button id="navTracking" class="sidebar-nav-item">
                     <div class="nav-icon">
                         <i class="fa fa-tasks"></i>
                     </div>
                     <span class="nav-text">流程跟踪</span>
+                    <div class="nav-status-dot" id="trackingStatusDot"></div>
                 </button>
+                
+                
             </div>
             
-            <div class="nav-section project-management">
-                <div class="nav-section-title">项目管理</div>
-                <button id="createNewMoldSidebar" class="sidebar-nav-item">
+            <!-- 项目操作区 -->
+            <div class="nav-section project-operations">
+                <div class="nav-section-title">
+                    <i class="fa fa-folder-open text-green-500"></i>
+                    项目操作
+                </div>
+                <button id="createNewMoldSidebar" class="sidebar-nav-item create-action">
                     <div class="nav-icon">
                         <i class="fa fa-plus-circle"></i>
                     </div>
-                    <span class="nav-text">新建模具项目</span>
-                </button>
-            </div>
-            
-            <div class="nav-section operation-tools">
-                <div class="nav-section-title">操作工具</div>
-                <button id="saveBtn" class="sidebar-nav-item">
-                    <div class="nav-icon">
-                        <i class="fa fa-save"></i>
-                    </div>
-                    <span class="nav-text">保存数据</span>
-                </button>
-                <button id="addBtn" class="sidebar-nav-item">
-                    <div class="nav-icon">
-                        <i class="fa fa-plus"></i>
-                    </div>
-                    <span class="nav-text">添加工序</span>
-                </button>
-                <button id="recalculateBtn" class="sidebar-nav-item">
-                    <div class="nav-icon">
-                        <i class="fa fa-refresh"></i>
-                    </div>
-                    <span class="nav-text">重新计算</span>
-                </button>
-                <button id="exportBtn" class="sidebar-nav-item">
-                    <div class="nav-icon">
-                        <i class="fa fa-file-excel-o"></i>
-                    </div>
-                    <span class="nav-text">导出Excel</span>
-                </button>
-                <button id="clearBtn" class="sidebar-nav-item">
-                    <div class="nav-icon">
-                        <i class="fa fa-trash"></i>
-                    </div>
-                    <span class="nav-text">清空数据</span>
+                    <span class="nav-text">新建项目</span>
+                    <div class="nav-shortcut">Ctrl+N</div>
                 </button>
                 <button id="initBtn" class="sidebar-nav-item">
                     <div class="nav-icon">
                         <i class="fa fa-cogs"></i>
                     </div>
                     <span class="nav-text">初始化流程</span>
+                    <div class="nav-shortcut">Ctrl+I</div>
                 </button>
             </div>
             
-            <div class="nav-section cycle-stats">
-                <div class="nav-section-title">周期统计</div>
-                <div class="sidebar-stats">
-                    <div class="stat-item">
-                        <div class="stat-icon">
+            <!-- 编辑工具区 -->
+            <div class="nav-section edit-tools">
+                <div class="nav-section-title">
+                    <i class="fa fa-edit text-orange-500"></i>
+                    编辑工具
+                </div>
+                <button id="addBtn" class="sidebar-nav-item">
+                    <div class="nav-icon">
+                        <i class="fa fa-plus"></i>
+                    </div>
+                    <span class="nav-text">添加工序</span>
+                    <div class="nav-shortcut">Ctrl+A</div>
+                </button>
+                <button id="recalculateBtn" class="sidebar-nav-item">
+                    <div class="nav-icon">
+                        <i class="fa fa-refresh"></i>
+                    </div>
+                    <span class="nav-text">重新计算</span>
+                    <div class="nav-shortcut">F5</div>
+                </button>
+                <button id="saveBtn" class="sidebar-nav-item save-action">
+                    <div class="nav-icon">
+                        <i class="fa fa-save"></i>
+                    </div>
+                    <span class="nav-text">保存数据</span>
+                    <div class="nav-shortcut">Ctrl+S</div>
+                </button>
+            </div>
+            
+            <!-- 数据管理区 -->
+            <div class="nav-section data-management">
+                <div class="nav-section-title">
+                    <i class="fa fa-database text-purple-500"></i>
+                    数据管理
+                </div>
+                <button id="exportBtn" class="sidebar-nav-item export-action">
+                    <div class="nav-icon">
+                        <i class="fa fa-file-excel-o"></i>
+                    </div>
+                    <span class="nav-text">导出Excel</span>
+                    <div class="nav-shortcut">Ctrl+E</div>
+                </button>
+                <button id="clearBtn" class="sidebar-nav-item danger-action">
+                    <div class="nav-icon">
+                        <i class="fa fa-trash"></i>
+                    </div>
+                    <span class="nav-text">清空数据</span>
+                    <div class="nav-warning-icon">
+                        <i class="fa fa-exclamation-triangle"></i>
+                    </div>
+                </button>
+            </div>
+            
+            <!-- 实时统计区 -->
+            <div class="nav-section real-time-stats">
+                <div class="nav-section-title">
+                    <i class="fa fa-chart-line text-indigo-500"></i>
+                    实时统计
+                </div>
+                <div class="sidebar-stats-enhanced">
+                    <div class="stat-item-enhanced">
+                        <div class="stat-icon-enhanced plan-stat">
                             <i class="fa fa-clock-o"></i>
                         </div>
-                        <div class="stat-content">
-                            <div class="stat-label">总计划周期</div>
-                            <div class="stat-value">
-                                <span id="sidebarPlanDays">0</span> 天
+                        <div class="stat-content-enhanced">
+                            <div class="stat-label-enhanced">计划周期</div>
+                            <div class="stat-value-enhanced">
+                                <span id="sidebarPlanDays">0</span>
+                                <span class="stat-unit">天</span>
                             </div>
                         </div>
+
                     </div>
-                    <div class="stat-item">
-                        <div class="stat-icon">
+                    
+                    <div class="stat-item-enhanced">
+                        <div class="stat-icon-enhanced actual-stat">
                             <i class="fa fa-check-circle"></i>
                         </div>
-                        <div class="stat-content">
-                            <div class="stat-label">总实际周期</div>
-                            <div class="stat-value">
-                                <span id="sidebarActualDays">0</span> 天
+                        <div class="stat-content-enhanced">
+                            <div class="stat-label-enhanced">实际周期</div>
+                            <div class="stat-value-enhanced">
+                                <span id="sidebarActualDays">0</span>
+                                <span class="stat-unit">天</span>
                             </div>
                         </div>
+
                     </div>
+                    
+
                 </div>
             </div>
         </nav>
-        <div class="sidebar-footer">
-            <div class="sidebar-footer-text">
-                <div class="footer-main-text">
-                    <i class="fa fa-shield text-blue-500"></i>
+        <div class="sidebar-footer mt-auto">
+            <div class="sidebar-footer-text p-4 border-t border-gray-200 bg-gray-50">
+                <div class="footer-main-text flex items-center text-sm font-medium text-gray-700 mb-1">
+                    <i class="fa fa-shield text-blue-500 mr-2"></i>
                     <strong>仅供内部使用</strong>
                 </div>
-                <div class="footer-sub-text">
+                <div class="footer-sub-text text-xs text-gray-500">
                     模具制造工艺流程跟踪系统<br>
                     智能化管理 · 精准化控制 · 高效化协作
                 </div>
@@ -950,89 +1173,74 @@
         <main class="content-body">
         <!-- 模具管理页面 -->
         <div id="managementPage" class="page-content active">
-            <!-- 优化的标题区域 -->
+            <!-- 优化的搜索筛选区域（集成统计信息） -->
             <section class="mb-6">
                 <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
-                    <!-- 标题栏 -->
-                    <div class="bg-gray-50 border-b border-gray-200 px-6 py-4">
-                        <div class="flex justify-between items-center">
-                            <div>
-                                <h2 class="text-lg font-semibold text-gray-800">模具信息管理</h2>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- 统计信息栏 -->
-                    <div class="px-6 py-3 bg-white border-b border-gray-200">
-                        <div class="grid grid-cols-4 gap-6 text-sm">
-                            <div class="text-center">
-                                <div class="text-lg font-semibold text-gray-800" id="totalMoldsCount">0</div>
-                                <div class="text-gray-600">总项目数</div>
-                            </div>
-                            <div class="text-center border-l border-gray-200">
-                                <div class="text-lg font-semibold text-orange-600" id="activeMoldsCount">0</div>
-                                <div class="text-gray-600">进行中</div>
-                            </div>
-                            <div class="text-center border-l border-gray-200">
-                                <div class="text-lg font-semibold text-green-600" id="completedMoldsCount">0</div>
-                                <div class="text-gray-600">已完成</div>
-                            </div>
-                            <div class="text-center border-l border-gray-200">
-                                <div class="text-lg font-semibold text-gray-600" id="pendingMoldsCount">0</div>
-                                <div class="text-gray-600">待开始</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- 优化的搜索筛选区域 -->
-            <section class="mb-6">
-                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
+                    <!-- 搜索栏和统计信息 -->
                     <div class="px-6 py-4 border-b border-gray-200 bg-gray-50">
-                        <div class="flex flex-col lg:flex-row gap-4">
+                        <div class="flex flex-row flex-wrap items-center justify-between gap-4">
+                            <!-- 搜索输入框 -->
                             <div class="flex-1">
                                 <div class="relative">
-                                    <input type="text" id="searchMolds" placeholder="搜索模具编号、名称、产品或材料..." 
+                                    <input type="text" id="searchMolds" placeholder="搜索模具编号、名称、产品、材料、类型或版本..." 
                                            class="w-full px-4 py-2 border border-gray-300 text-sm focus:border-blue-500 focus:outline-none bg-white rounded-lg pl-10">
                                     <i class="fa fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
                                 </div>
                             </div>
-                            <div class="flex gap-3">
-                                <select id="statusFilter" class="px-3 py-2 border border-gray-300 text-sm focus:border-blue-500 focus:outline-none bg-white min-w-[120px] rounded-lg">
-                                    <option value="">所有状态</option>
-                                    <option value="pending">待开始</option>
-                                    <option value="active">进行中</option>
-                                    <option value="completed">已完成</option>
-                                </select>
-                                <button id="refreshMolds" class="px-4 py-2 bg-gray-100 text-gray-700 text-sm hover:bg-gray-200 transition-colors rounded-lg flex items-center">
-                                    <i class="fa fa-refresh mr-1"></i>刷新
-                                </button>
+                            
+
+
+                            <!-- 顶部右侧筛选功能（并入与搜索同一行） -->
+                            <div class="flex items-center gap-3 flex-wrap justify-end w-full lg:w-auto">
+                                <span class="text-sm text-gray-600 font-medium flex items-center">
+                                    <i class="fa fa-filter mr-1"></i>快速筛选:
+                                </span>
+                                <!-- 时间筛选 -->
+                                <div class="flex items-center gap-2">
+                                    <button class="quick-filter px-3 py-1.5 text-sm bg-gray-100 text-gray-700 hover:bg-blue-100 hover:text-blue-700 transition-colors rounded-lg" data-filter="today">
+                                        <i class="fa fa-calendar-day mr-1"></i>今日更新
+                                    </button>
+                                    <button class="quick-filter px-3 py-1.5 text-sm bg-gray-100 text-gray-700 hover:bg-green-100 hover:text-green-700 transition-colors rounded-lg" data-filter="recent">
+                                        <i class="fa fa-clock-o mr-1"></i>最近3天
+                                    </button>
+                                    <button class="quick-filter px-3 py-1.5 text-sm bg-gray-100 text-gray-700 hover:bg-purple-100 hover:text-purple-700 transition-colors rounded-lg" data-filter="week">
+                                        <i class="fa fa-calendar-week mr-1"></i>本周创建
+                                    </button>
+                                </div>
+                                <!-- 状态筛选 -->
+                                <div class="flex items-center gap-2 border-l border-gray-300 pl-3">
+                                    <button class="quick-filter px-3 py-1.5 text-sm bg-gray-100 text-gray-700 hover:bg-orange-100 hover:text-orange-700 transition-colors rounded-lg" data-filter="active">
+                                        <i class="fa fa-play-circle mr-1"></i>进行中
+                                    </button>
+                                    <button class="quick-filter px-3 py-1.5 text-sm bg-gray-100 text-gray-700 hover:bg-green-100 hover:text-green-700 transition-colors rounded-lg" data-filter="completed">
+                                        <i class="fa fa-check-circle mr-1"></i>已完成
+                                    </button>
+                                </div>
+                                <!-- 紧急筛选 -->
+                                <div class="flex items-center gap-2 border-l border-gray-300 pl-3">
+                                    <button class="quick-filter px-3 py-1.5 text-sm bg-gray-100 text-gray-700 hover:bg-yellow-100 hover:text-yellow-700 transition-colors rounded-lg" data-filter="urgent">
+                                        <i class="fa fa-exclamation-triangle mr-1"></i>即将试模 
+                                        <span id="upcomingTestCount" class="ml-1 px-1.5 py-0.5 text-xs bg-orange-100 text-orange-600 rounded-full font-semibold">0</span>
+                                    </button>
+                                    <button class="quick-filter px-3 py-1.5 text-sm bg-gray-100 text-gray-700 hover:bg-red-100 hover:text-red-700 transition-colors rounded-lg" data-filter="overdue">
+                                        <i class="fa fa-exclamation-circle mr-1"></i>已逾期
+                                        <span id="overdueCount" class="ml-1 px-1.5 py-0.5 text-xs bg-red-100 text-red-600 rounded-full font-semibold">0</span>
+                                    </button>
+                                </div>
+                                <!-- 重置与计数 -->
+                                <div class="flex items-center gap-3 border-l border-gray-300 pl-3">
+                                    <button id="resetFilters" class="px-3 py-1.5 text-sm bg-red-100 text-red-700 hover:bg-red-200 hover:text-red-800 transition-colors rounded-lg">
+                                        <i class="fa fa-times mr-1"></i>重置筛选
+                                    </button>
+                                    <div class="text-sm text-gray-500 bg-gray-50 px-3 py-1.5 rounded-lg">
+                                        共 <span id="filteredCount" class="font-semibold text-gray-700">0</span> 条记录
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                     
-                    <!-- 优化的快速筛选工具栏 -->
-                    <div class="px-6 py-3 bg-white border-b border-gray-200">
-                        <div class="flex flex-wrap items-center gap-3">
-                            <span class="text-sm text-gray-600 font-medium">快速筛选:</span>
-                            <button class="quick-filter px-3 py-1.5 text-sm bg-gray-100 text-gray-700 hover:bg-blue-100 hover:text-blue-700 transition-colors rounded-lg" data-filter="today">
-                                今日更新
-                            </button>
-                            <button class="quick-filter px-3 py-1.5 text-sm bg-gray-100 text-gray-700 hover:bg-blue-100 hover:text-blue-700 transition-colors rounded-lg" data-filter="week">
-                                本周创建
-                            </button>
-                            <button class="quick-filter px-3 py-1.5 text-sm bg-gray-100 text-gray-700 hover:bg-blue-100 hover:text-blue-700 transition-colors rounded-lg" data-filter="completed">
-                                全部完成
-                            </button>
-                            <button class="quick-filter px-3 py-1.5 text-sm bg-gray-100 text-gray-700 hover:bg-blue-100 hover:text-blue-700 transition-colors rounded-lg" data-filter="urgent">
-                                即将试模 <span id="upcomingTestCount" class="ml-1 px-1.5 py-0.5 text-xs bg-orange-100 text-orange-600 rounded-full">0</span>
-                            </button>
-                            <div class="ml-auto text-sm text-gray-500">
-                                共 <span id="filteredCount">0</span> 条记录
-                            </div>
-                        </div>
-                    </div>
+
                 </div>
             </section>
 
@@ -1045,9 +1253,6 @@
                 
                 <!-- 空状态 -->
                 <div id="emptyState" class="text-center py-12 hidden">
-                    <div class="text-gray-400 mb-3">
-                        <div class="text-4xl mb-2">🏭</div>
-                    </div>
                     <h3 class="text-lg font-medium text-gray-600 mb-2">还没有模具项目</h3>
                     <p class="text-gray-500 text-sm">使用侧栏的"新建模具项目"开始创建</p>
                 </div>
@@ -1197,6 +1402,11 @@
             </div>
         </section>
         </div> <!-- 结束流程跟踪页面 -->
+        
+
+
+        
+        
         </main>
     </div>
     
@@ -1204,20 +1414,212 @@
     <div id="notification" class="fixed top-20 right-5 px-6 py-3 rounded-lg shadow-lg transform translate-x-full transition-transform duration-300 flex items-center z-50"></div>
 
     <script>
+        // ==================== 全局变量和状态管理 ====================
+        
+        // 事件管理器 - 解决内存泄漏问题
+        class EventManager {
+            constructor() {
+                this.listeners = new Map();
+                this.timers = new Set();
+            }
+            
+            addListener(element, event, handler, options = {}) {
+                if (!element) return;
+                
+                const key = `${element.id || 'anonymous'}-${event}-${Date.now()}`;
+                
+                // 移除可能存在的旧监听器
+                this.removeListener(element, event, handler);
+                
+                // 添加新监听器
+                element.addEventListener(event, handler, options);
+                
+                // 记录监听器
+                if (!this.listeners.has(element)) {
+                    this.listeners.set(element, []);
+                }
+                this.listeners.get(element).push({ event, handler, key, options });
+                
+                return key;
+            }
+            
+            removeListener(element, event, handler) {
+                if (!element || !this.listeners.has(element)) return;
+                
+                const elementListeners = this.listeners.get(element);
+                const index = elementListeners.findIndex(l => l.event === event && l.handler === handler);
+                
+                if (index !== -1) {
+                    element.removeEventListener(event, handler, elementListeners[index].options);
+                    elementListeners.splice(index, 1);
+                    
+                    if (elementListeners.length === 0) {
+                        this.listeners.delete(element);
+                    }
+                }
+            }
+            
+            removeAllListeners(element) {
+                if (!element || !this.listeners.has(element)) return;
+                
+                const elementListeners = this.listeners.get(element);
+                elementListeners.forEach(({ event, handler, options }) => {
+                    element.removeEventListener(event, handler, options);
+                });
+                
+                this.listeners.delete(element);
+            }
+            
+            addTimer(timerId) {
+                this.timers.add(timerId);
+                return timerId;
+            }
+            
+            clearTimer(timerId) {
+                if (this.timers.has(timerId)) {
+                    clearTimeout(timerId);
+                    this.timers.delete(timerId);
+                }
+            }
+            
+            cleanup() {
+                // 清理所有事件监听器
+                this.listeners.forEach((listeners, element) => {
+                    listeners.forEach(({ event, handler, options }) => {
+                        element.removeEventListener(event, handler, options);
+                    });
+                });
+                this.listeners.clear();
+                
+                // 清理所有定时器
+                this.timers.forEach(timerId => clearTimeout(timerId));
+                this.timers.clear();
+            }
+        }
+        
+        // 工具函数类 - 统一重复代码
+        class Utils {
+            static formatDate(date, format = 'YYYY-MM-DD') {
+                if (!date) return '';
+                const d = new Date(date);
+                if (isNaN(d.getTime())) return '';
+                
+                const year = d.getFullYear();
+                const month = String(d.getMonth() + 1).padStart(2, '0');
+                const day = String(d.getDate()).padStart(2, '0');
+                
+                return `${year}-${month}-${day}`;
+            }
+            
+            static formatDateForDisplay(date) {
+                if (!date) return '';
+                const d = new Date(date);
+                if (isNaN(d.getTime())) return '';
+                
+                const month = String(d.getMonth() + 1).padStart(2, '0');
+                const day = String(d.getDate()).padStart(2, '0');
+                
+                return `${month}/${day}`;
+            }
+            
+            static safeParseDate(dateStr) {
+                if (!dateStr) return null;
+                const date = new Date(dateStr);
+                return isNaN(date.getTime()) ? null : date;
+            }
+            
+            static debounce(func, wait) {
+                let timeout;
+                return function executedFunction(...args) {
+                    const later = () => {
+                        clearTimeout(timeout);
+                        func(...args);
+                    };
+                    clearTimeout(timeout);
+                    timeout = setTimeout(later, wait);
+                };
+            }
+            
+            static normalizeStatus(status) {
+                if (!status) return 'pending';
+                const statusMapping = {
+                    'pending': 'pending',
+                    'inProgress': 'inProgress', 
+                    'completed': 'completed',
+                    'delayed': 'delayed',
+                    'active': 'inProgress',
+                    'finished': 'completed',
+                    'waiting': 'pending'
+                };
+                return statusMapping[status] || status;
+            }
+            
+            static validateInput(value, type) {
+                switch (type) {
+                    case 'required':
+                        return value && value.trim() !== '';
+                    case 'number':
+                        return !isNaN(parseFloat(value)) && isFinite(value);
+                    case 'positiveNumber':
+                        return !isNaN(parseFloat(value)) && isFinite(value) && parseFloat(value) > 0;
+                    case 'date':
+                        return Utils.safeParseDate(value) !== null;
+                    default:
+                        return true;
+                }
+            }
+        }
+        
+        // 通知管理器 - 统一通知显示
+        class NotificationManager {
+            constructor() {
+                this.notification = document.getElementById('notification');
+            }
+            
+            show(message, type = 'info', duration = 3000) {
+                if (!this.notification) return;
+                
+                const config = {
+                    success: { bg: 'bg-success', text: 'text-white', icon: 'fa-check-circle' },
+                    error: { bg: 'bg-danger', text: 'text-white', icon: 'fa-exclamation-circle' },
+                    warning: { bg: 'bg-warning', text: 'text-white', icon: 'fa-exclamation-triangle' },
+                    info: { bg: 'bg-primary', text: 'text-white', icon: 'fa-info-circle' }
+                };
+                
+                const { bg, text, icon } = config[type] || config.info;
+                
+                this.notification.className = `fixed top-20 right-5 px-6 py-3 rounded-lg shadow-lg transform transition-transform duration-300 flex items-center z-50 ${bg} ${text}`;
+                this.notification.innerHTML = `<i class="fa ${icon} mr-2"></i>${message}`;
+                this.notification.style.transform = 'translateX(0)';
+                
+                const timerId = setTimeout(() => {
+                    this.notification.style.transform = 'translateX(calc(100% + 20px))';
+                }, duration);
+                
+                eventManager.addTimer(timerId);
+            }
+        }
+        
+        // 全局实例
+        const eventManager = new EventManager();
+        const notificationManager = new NotificationManager();
+        
         // 全局变量
         let processData = [];
         let nextProcessId = 1;
         let scheduleSettings = {
-            includeDependencies: true // 仅保留工序依赖关系设置
+            includeDependencies: true
         };
         let autoSaveTimer = null;
-        let isCalculating = false; // 防止重复计算
+        let isCalculating = false;
         
         // 模具管理相关变量
         let moldsData = [];
         let currentMoldId = null;
+        let currentQuickFilter = null;
+        let currentFilteredMolds = null;
         let nextMoldId = 1;
-        let currentPage = 'management'; // 'management' 或 'tracking'
+        let currentPage = 'management';
         
         // DOM元素
         const processTableBody = document.getElementById('processTableBody');
@@ -1239,8 +1641,8 @@
         const emptyState = document.getElementById('emptyState');
         const createNewMold = document.getElementById('createNewMold');
         const searchMolds = document.getElementById('searchMolds');
-        const statusFilter = document.getElementById('statusFilter');
-        const refreshMolds = document.getElementById('refreshMolds');
+        // const statusFilter = document.getElementById('statusFilter'); // 已移除下拉状态筛选
+        // const refreshMolds = document.getElementById('refreshMolds'); // 已移除刷新按钮
         
         // 状态选项
         const statusOptions = [
@@ -1249,6 +1651,25 @@
             { id: 'completed', name: '已完成', class: 'bg-success/20 text-success border border-success/30' },
             { id: 'delayed', name: '已延迟', class: 'bg-danger/20 text-danger border border-danger/30' }
         ];
+        
+        // 状态映射表 - 统一不同地方使用的状态值
+        const statusMapping = {
+            // 工序状态
+            'pending': 'pending',
+            'inProgress': 'inProgress', 
+            'completed': 'completed',
+            'delayed': 'delayed',
+            // 模具状态映射
+            'active': 'inProgress', // 将active统一映射为inProgress
+            'finished': 'completed', // 将finished统一映射为completed
+            'waiting': 'pending' // 将waiting统一映射为pending
+        };
+        
+        // 状态标准化函数
+        function normalizeStatus(status) {
+            if (!status) return 'pending';
+            return statusMapping[status] || status;
+        }
         
         // 初始化 - 增强版
         document.addEventListener('DOMContentLoaded', () => {
@@ -1262,7 +1683,9 @@
             
             setupEventListeners();
             setupMoldManagementListeners();
+            setupKeyboardShortcuts(); // 添加快捷键支持
             updateCycleStatistics();
+            updateMoldCountBadge(); // 更新模具数量徽章
             
             // 根据currentPage显示对应的页面
             if (currentPage === 'management') {
@@ -1293,7 +1716,190 @@
                     showNotification('欢迎使用模具制造跟踪系统！点击"初始化流程"开始', 'info');
                 }
             }, 2000);
+            
+            // 定期更新统计信息
+            setInterval(() => {
+                updateCycleStatistics();
+                updateMoldCountBadge();
+            }, 30000); // 每30秒更新一次
+            
+            // 确保模具管理页面正确初始化
+            if (document.getElementById('managementPage').classList.contains('active')) {
+                renderMoldsList();
+            }
         });
+        
+        // 设置键盘快捷键
+        function setupKeyboardShortcuts() {
+            document.addEventListener('keydown', (e) => {
+                // 检查是否在输入框中，如果是则不处理快捷键
+                if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT') {
+                    // 只处理特定的快捷键
+                    if (e.ctrlKey && e.key === 's') {
+                        e.preventDefault();
+                        saveData();
+                        showNotification('数据已保存 (Ctrl+S)', 'success');
+                    }
+                    return;
+                }
+                
+                // 处理快捷键
+                if (e.ctrlKey) {
+                    switch (e.key.toLowerCase()) {
+                        case 'n':
+                            e.preventDefault();
+                            createNewMoldProject();
+                            showNotification('创建新项目 (Ctrl+N)', 'info');
+                            break;
+                        case 's':
+                            e.preventDefault();
+                            saveData();
+                            showNotification('数据已保存 (Ctrl+S)', 'success');
+                            break;
+                        case 'e':
+                            e.preventDefault();
+                            exportToExcel();
+                            showNotification('导出Excel (Ctrl+E)', 'info');
+                            break;
+                        case 'a':
+                            e.preventDefault();
+                            if (currentPage === 'tracking') {
+                                addNewProcess();
+                                showNotification('添加工序 (Ctrl+A)', 'info');
+                            }
+                            break;
+                        case 'i':
+                            e.preventDefault();
+                            if (currentPage === 'tracking') {
+                                initializeDefaultProcesses();
+                                showNotification('初始化流程 (Ctrl+I)', 'info');
+                            }
+                            break;
+                    }
+                } else {
+                    switch (e.key) {
+                        case 'F5':
+                            if (currentPage === 'tracking') {
+                                e.preventDefault();
+                                recalculateSchedule();
+                                showNotification('重新计算 (F5)', 'info');
+                            }
+                            break;
+                        case 'F1':
+                            e.preventDefault();
+                            showHelpModal();
+                            break;
+                        case 'Escape':
+                            // 关闭模态框或取消操作
+                            const modals = document.querySelectorAll('.fixed.inset-0');
+                            modals.forEach(modal => {
+                                if (modal.style.display !== 'none') {
+                                    modal.remove();
+                                }
+                            });
+                            break;
+                    }
+                }
+            });
+        }
+        
+        // 显示帮助模态框
+        function showHelpModal() {
+            const modal = document.createElement('div');
+            modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4 backdrop-blur-sm';
+            modal.innerHTML = `
+                <div class="bg-white rounded-3xl shadow-2xl w-full max-w-2xl max-h-[85vh] overflow-hidden border border-gray-100">
+                    <div class="bg-gradient-to-r from-blue-50 to-indigo-50 px-8 py-6 border-b border-gray-100">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <h3 class="text-xl font-bold text-gray-800 mb-1">快捷键帮助</h3>
+                                <p class="text-sm text-gray-600">提高操作效率的键盘快捷键</p>
+                            </div>
+                            <button class="close-help text-gray-400 hover:text-gray-600 w-10 h-10 flex items-center justify-center hover:bg-white hover:bg-opacity-50 rounded-full transition-all duration-200">
+                                <i class="fa fa-times text-lg"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="overflow-y-auto max-h-[60vh] p-8">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <h4 class="font-semibold text-gray-800 mb-3 flex items-center">
+                                    <i class="fa fa-keyboard-o mr-2 text-blue-500"></i>
+                                    通用快捷键
+                                </h4>
+                                <div class="space-y-2 text-sm">
+                                    <div class="flex justify-between items-center py-1">
+                                        <span>保存数据</span>
+                                        <kbd class="px-2 py-1 bg-gray-100 rounded text-xs">Ctrl+S</kbd>
+                                    </div>
+                                    <div class="flex justify-between items-center py-1">
+                                        <span>导出Excel</span>
+                                        <kbd class="px-2 py-1 bg-gray-100 rounded text-xs">Ctrl+E</kbd>
+                                    </div>
+                                    <div class="flex justify-between items-center py-1">
+                                        <span>新建项目</span>
+                                        <kbd class="px-2 py-1 bg-gray-100 rounded text-xs">Ctrl+N</kbd>
+                                    </div>
+                                    <div class="flex justify-between items-center py-1">
+                                        <span>帮助</span>
+                                        <kbd class="px-2 py-1 bg-gray-100 rounded text-xs">F1</kbd>
+                                    </div>
+                                    <div class="flex justify-between items-center py-1">
+                                        <span>关闭弹窗</span>
+                                        <kbd class="px-2 py-1 bg-gray-100 rounded text-xs">Esc</kbd>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <h4 class="font-semibold text-gray-800 mb-3 flex items-center">
+                                    <i class="fa fa-tasks mr-2 text-green-500"></i>
+                                    流程跟踪快捷键
+                                </h4>
+                                <div class="space-y-2 text-sm">
+                                    <div class="flex justify-between items-center py-1">
+                                        <span>添加工序</span>
+                                        <kbd class="px-2 py-1 bg-gray-100 rounded text-xs">Ctrl+A</kbd>
+                                    </div>
+                                    <div class="flex justify-between items-center py-1">
+                                        <span>初始化流程</span>
+                                        <kbd class="px-2 py-1 bg-gray-100 rounded text-xs">Ctrl+I</kbd>
+                                    </div>
+                                    <div class="flex justify-between items-center py-1">
+                                        <span>重新计算</span>
+                                        <kbd class="px-2 py-1 bg-gray-100 rounded text-xs">F5</kbd>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-6 p-4 bg-blue-50 rounded-lg">
+                            <h5 class="font-semibold text-blue-800 mb-2">使用提示</h5>
+                            <ul class="text-sm text-blue-700 space-y-1">
+                                <li>• 在输入框中时，只有 Ctrl+S 快捷键有效</li>
+                                <li>• 快捷键操作会显示确认提示</li>
+                                <li>• 部分快捷键仅在对应页面中有效</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+            
+            // 关闭按钮事件
+            modal.querySelector('.close-help').addEventListener('click', () => {
+                document.body.removeChild(modal);
+            });
+            
+            // 点击背景关闭
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    document.body.removeChild(modal);
+                }
+            });
+        }
         
         // 创建演示模具数据
         function createDemoMoldsData() {
@@ -1346,7 +1952,7 @@
             saveMoldsData();
         }
         
-        // 设置事件监听器
+        // 设置事件监听器 - 使用事件管理器
         function setupEventListeners() {
             // 侧边栏按钮事件监听器
             const sidebarSaveBtn = document.getElementById('saveBtn');
@@ -1356,46 +1962,39 @@
             const sidebarAddBtn = document.getElementById('addBtn');
             const sidebarRecalculateBtn = document.getElementById('recalculateBtn');
             
-            if (sidebarSaveBtn) sidebarSaveBtn.addEventListener('click', saveData);
-            if (sidebarExportBtn) sidebarExportBtn.addEventListener('click', exportToExcel);
-            if (sidebarClearBtn) sidebarClearBtn.addEventListener('click', clearAllData);
-            if (sidebarInitBtn) sidebarInitBtn.addEventListener('click', initializeDefaultProcesses);
-            if (sidebarAddBtn) sidebarAddBtn.addEventListener('click', addNewProcess);
-            if (sidebarRecalculateBtn) sidebarRecalculateBtn.addEventListener('click', recalculateSchedule);
+            if (sidebarSaveBtn) eventManager.addListener(sidebarSaveBtn, 'click', saveData);
+            if (sidebarExportBtn) eventManager.addListener(sidebarExportBtn, 'click', exportToExcel);
+            if (sidebarClearBtn) eventManager.addListener(sidebarClearBtn, 'click', clearAllData);
+            if (sidebarInitBtn) eventManager.addListener(sidebarInitBtn, 'click', initializeDefaultProcesses);
+            if (sidebarAddBtn) eventManager.addListener(sidebarAddBtn, 'click', addNewProcess);
+            if (sidebarRecalculateBtn) eventManager.addListener(sidebarRecalculateBtn, 'click', recalculateSchedule);
             
             // 导航切换事件
-            navManagement.addEventListener('click', () => switchPage('management'));
-            navTracking.addEventListener('click', () => switchPage('tracking'));
+            if (navManagement) eventManager.addListener(navManagement, 'click', () => switchPage('management'));
+            if (navTracking) eventManager.addListener(navTracking, 'click', () => switchPage('tracking'));
             
             // 侧边栏新建模具项目按钮
             const createNewMoldSidebar = document.getElementById('createNewMoldSidebar');
             if (createNewMoldSidebar) {
-                createNewMoldSidebar.addEventListener('click', createNewMoldProject);
+                eventManager.addListener(createNewMoldSidebar, 'click', createNewMoldProject);
             }
             
             // 为日期选择器添加点击事件
             document.querySelectorAll('.date-picker-wrapper').forEach(wrapper => {
                 const input = wrapper.querySelector('input[type="date"]');
-                
-                wrapper.addEventListener('click', () => {
-                    if (typeof input.showPicker === 'function') {
-                        input.showPicker();
-                    }
-                });
+                if (input) {
+                    eventManager.addListener(wrapper, 'click', () => {
+                        if (typeof input.showPicker === 'function') {
+                            input.showPicker();
+                        }
+                    });
+                }
             });
         }
         
-        // 防抖函数，避免频繁操作
+        // 使用统一的防抖函数
         function debounce(func, wait) {
-            let timeout;
-            return function executedFunction(...args) {
-                const later = () => {
-                    clearTimeout(timeout);
-                    func(...args);
-                };
-                clearTimeout(timeout);
-                timeout = setTimeout(later, wait);
-            };
+            return Utils.debounce(func, wait);
         }
         
         // 重新计算排期 - 智能计算所有工序的日期和天数
@@ -1688,7 +2287,7 @@
             }
         }
         
-        // 更新周期统计
+        // 更新周期统计 - 增强版
         function updateCycleStatistics() {
             // 计算计划总周期
             const planStarts = processData.map(p => p.planStart).filter(d => d);
@@ -1701,20 +2300,43 @@
                 totalPlanDays = calculateDaysBetween(firstPlanStart, lastPlanEndDate);
             }
             
-            // 计算实际总周期
-            const actualStarts = processData.map(p => p.actualStart).filter(d => d);
-            const actualEnds = processData.map(p => p.actualEnd).filter(d => d);
-            
+            // 计算实际总周期 - 修复计算逻辑
             let totalActualDays = 0;
-            if (actualStarts.length > 0 && actualEnds.length > 0) {
-                const firstActualStart = new Date(Math.min(...actualStarts.map(d => new Date(d).getTime())));
-                const lastActualEndDate = new Date(Math.max(...actualEnds.map(d => new Date(d).getTime())));
+            
+            // 获取所有有实际开始日期的工序（包括进行中和已完成的）
+            const startedProcesses = processData.filter(p => p.actualStart && 
+                (p.status === 'inProgress' || p.status === 'completed'));
+            
+            if (startedProcesses.length > 0) {
+                // 获取最早的开始日期
+                const firstActualStart = new Date(Math.min(...startedProcesses.map(p => new Date(p.actualStart).getTime())));
+                
+                // 获取最晚的结束日期（已完成的工序）
+                const completedProcesses = startedProcesses.filter(p => p.actualEnd && p.status === 'completed');
+                let lastActualEndDate;
+                
+                if (completedProcesses.length > 0) {
+                    // 有已完成的工序，取最晚的实际结束日期
+                    lastActualEndDate = new Date(Math.max(...completedProcesses.map(p => new Date(p.actualEnd).getTime())));
+                } else {
+                    // 没有已完成的工序，使用当前日期作为结束日期
+                    lastActualEndDate = new Date();
+                }
+                
+                // 计算实际周期
                 totalActualDays = calculateDaysBetween(firstActualStart, lastActualEndDate);
             }
+            
+            // 计算完成进度
+            const completedCount = processData.filter(p => p.status === 'completed').length;
+            const totalProcesses = processData.length;
+            const progress = totalProcesses > 0 ? Math.round((completedCount / totalProcesses) * 100) : 0;
             
             // 更新侧边栏统计数据
             const sidebarPlanDays = document.getElementById('sidebarPlanDays');
             const sidebarActualDays = document.getElementById('sidebarActualDays');
+            const sidebarProgress = document.getElementById('sidebarProgress');
+            const progressFillMini = document.getElementById('progressFillMini');
             
             if (sidebarPlanDays) {
                 animateValue(sidebarPlanDays, parseInt(sidebarPlanDays.textContent) || 0, totalPlanDays, 500);
@@ -1722,29 +2344,157 @@
             if (sidebarActualDays) {
                 animateValue(sidebarActualDays, parseInt(sidebarActualDays.textContent) || 0, totalActualDays, 500);
             }
+            if (sidebarProgress) {
+                animateValue(sidebarProgress, parseInt(sidebarProgress.textContent) || 0, progress, 500);
+            }
+            if (progressFillMini) {
+                progressFillMini.style.width = progress + '%';
+            }
+            
+            // 更新趋势指示器
+            updateTrendIndicators(totalPlanDays, totalActualDays);
+            
+            // 更新跟踪状态指示器
+            updateTrackingStatusIndicator();
+        }
+        
+        // 更新趋势指示器
+        function updateTrendIndicators(planDays, actualDays) {
+            const planTrend = document.getElementById('planTrend');
+            const actualTrend = document.getElementById('actualTrend');
+            
+            if (planTrend) {
+                if (actualDays > planDays) {
+                    planTrend.innerHTML = '<i class="fa fa-arrow-up trend-up"></i>';
+                    planTrend.title = '实际周期超过计划';
+                } else if (actualDays < planDays && actualDays > 0) {
+                    planTrend.innerHTML = '<i class="fa fa-arrow-down trend-down"></i>';
+                    planTrend.title = '实际周期少于计划';
+                } else {
+                    planTrend.innerHTML = '<i class="fa fa-minus" style="color: #64748b;"></i>';
+                    planTrend.title = '计划与实际相符';
+                }
+            }
+            
+            if (actualTrend) {
+                const efficiency = planDays > 0 ? ((planDays - actualDays) / planDays * 100) : 0;
+                if (efficiency > 0) {
+                    actualTrend.innerHTML = '<i class="fa fa-arrow-down trend-down"></i>';
+                    actualTrend.title = `效率提升 ${efficiency.toFixed(1)}%`;
+                } else if (efficiency < 0) {
+                    actualTrend.innerHTML = '<i class="fa fa-arrow-up trend-up"></i>';
+                    actualTrend.title = `超期 ${Math.abs(efficiency).toFixed(1)}%`;
+                } else {
+                    actualTrend.innerHTML = '<i class="fa fa-minus" style="color: #64748b;"></i>';
+                    actualTrend.title = '按计划执行';
+                }
+            }
+        }
+        
+        // 更新跟踪状态指示器
+        function updateTrackingStatusIndicator() {
+            const statusDot = document.getElementById('trackingStatusDot');
+            if (!statusDot) return;
+            
+            const hasActiveProcess = processData.some(p => p.status === 'inProgress');
+            const hasData = processData.length > 0;
+            
+            if (hasActiveProcess) {
+                statusDot.className = 'nav-status-dot';
+                statusDot.style.background = '#10b981'; // 绿色 - 有进行中的工序
+                statusDot.title = '有工序正在进行中';
+            } else if (hasData) {
+                statusDot.className = 'nav-status-dot';
+                statusDot.style.background = '#f59e0b'; // 橙色 - 有数据但无进行中工序
+                statusDot.title = '有数据但无进行中工序';
+            } else {
+                statusDot.className = 'nav-status-dot inactive';
+                statusDot.style.background = '#94a3b8'; // 灰色 - 无数据
+                statusDot.title = '暂无跟踪数据';
+            }
+        }
+        
+        // 更新模具数量徽章
+        function updateMoldCountBadge() {
+            const moldCountBadge = document.getElementById('moldCountBadge');
+            if (moldCountBadge && typeof moldsData !== 'undefined') {
+                const count = moldsData.length;
+                moldCountBadge.textContent = count;
+                
+                // 根据数量调整徽章样式
+                if (count === 0) {
+                    moldCountBadge.style.display = 'none';
+                } else {
+                    moldCountBadge.style.display = 'block';
+                    if (count > 99) {
+                        moldCountBadge.textContent = '99+';
+                    }
+                }
+            }
         }
         
         // 精确计算两个日期之间的天数（包含开始和结束日期）
         function calculateDaysBetween(startDate, endDate) {
-            // 确保日期对象有效
-            if (!(startDate instanceof Date) || !(endDate instanceof Date) || isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
+            // 参数验证和类型转换
+            let start, end;
+            
+            if (typeof startDate === 'string') {
+                start = new Date(startDate);
+            } else if (startDate instanceof Date) {
+                start = new Date(startDate);
+            } else {
+                console.warn('calculateDaysBetween: 无效的开始日期', startDate);
+                return 0;
+            }
+            
+            if (typeof endDate === 'string') {
+                end = new Date(endDate);
+            } else if (endDate instanceof Date) {
+                end = new Date(endDate);
+            } else {
+                console.warn('calculateDaysBetween: 无效的结束日期', endDate);
+                return 0;
+            }
+            
+            // 验证日期有效性
+            if (isNaN(start.getTime()) || isNaN(end.getTime())) {
+                console.warn('calculateDaysBetween: 日期解析失败', { startDate, endDate });
                 return 0;
             }
             
             // 如果开始日期晚于结束日期，返回0
-            if (startDate > endDate) {
+            if (start > end) {
                 return 0;
             }
             
-            // 标准化日期到当天的开始时间，避免时区和时间差异
-            const normalizedStart = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate());
-            const normalizedEnd = new Date(endDate.getFullYear(), endDate.getMonth(), endDate.getDate());
+            // 标准化日期到UTC时间的当天开始，避免时区问题
+            const normalizedStart = new Date(Date.UTC(start.getFullYear(), start.getMonth(), start.getDate()));
+            const normalizedEnd = new Date(Date.UTC(end.getFullYear(), end.getMonth(), end.getDate()));
             
             // 计算时间差（毫秒）
-            const timeDiff = normalizedEnd.getTime() - normalizedStart.getTime();
+            const timeDiffMs = normalizedEnd.getTime() - normalizedStart.getTime();
             
-            // 转换为天数并加1以包含当天
-            return Math.floor(timeDiff / (1000 * 3600 * 24)) + 1;
+            // 转换为天数（使用UTC时间确保跨年计算准确）
+            const daysDiff = Math.floor(timeDiffMs / (1000 * 60 * 60 * 24));
+            
+            // 包含开始和结束日期，所以加1
+            const totalDays = daysDiff + 1;
+            
+            // 调试日志（生产环境可移除）
+            if (totalDays < 0) {
+                console.warn('calculateDaysBetween: 计算结果为负数', {
+                    startDate,
+                    endDate,
+                    normalizedStart,
+                    normalizedEnd,
+                    timeDiffMs,
+                    daysDiff,
+                    totalDays
+                });
+                return 0;
+            }
+            
+            return totalDays;
         }
         
         // 数字变化动画
@@ -1848,19 +2598,39 @@
             }
         }
 
-        // 同步数据到模具管理列表（增强版）
+        // 同步数据到模具管理列表（修复版 - 防止重复记录）
         function syncToMoldManagement(moldInfo, processes) {
             try {
-                // 即使没有完整信息也要尝试同步，创建临时记录
-                const moldNumber = moldInfo.moldNumber || `TEMP_${Date.now()}`;
-                const moldName = moldInfo.moldName || '未命名模具';
+                // 验证输入参数
+                if (!moldInfo || typeof moldInfo !== 'object') {
+                    console.warn('syncToMoldManagement: 无效的moldInfo参数');
+                    return false;
+                }
                 
-                // 查找是否已存在相同编号的模具
-                let existingMold = moldsData.find(m => m.moldNumber === moldNumber);
+                const moldNumber = moldInfo.moldNumber?.trim();
+                const moldName = moldInfo.moldName?.trim();
+                
+                // 如果没有模具编号，不进行同步（避免创建无效记录）
+                if (!moldNumber) {
+                    console.warn('syncToMoldManagement: 模具编号为空，跳过同步');
+                    return false;
+                }
+                
+                // 查找现有模具 - 优先使用currentMoldId，其次使用moldNumber
+                let existingMold = null;
+                if (currentMoldId) {
+                    existingMold = moldsData.find(m => m.id === currentMoldId);
+                }
+                
+                // 如果通过ID没找到，再通过编号查找
+                if (!existingMold) {
+                    existingMold = moldsData.find(m => m.moldNumber === moldNumber);
+                }
                 
                 if (existingMold) {
                     // 更新现有模具信息
-                    existingMold.moldName = moldName;
+                    existingMold.moldNumber = moldNumber;
+                    existingMold.moldName = moldName || '未命名模具';
                     existingMold.moldType = moldInfo.moldType || '';
                     existingMold.version = moldInfo.version || '';
                     existingMold.productName = moldInfo.productName || '';
@@ -1869,7 +2639,7 @@
                     existingMold.moldOpenNotice = moldInfo.moldOpenNotice || '';
                     existingMold.testDate = moldInfo.testDate || '';
                     existingMold.moldRemark = moldInfo.moldRemark || '';
-                    existingMold.processes = JSON.parse(JSON.stringify(processes)); // 深拷贝
+                    existingMold.processes = JSON.parse(JSON.stringify(processes || [])); // 深拷贝
                     existingMold.updatedAt = new Date().toISOString();
                     
                     // 根据工序状态更新模具状态和进度信息
@@ -1881,11 +2651,18 @@
                     
                     console.log('更新现有模具:', existingMold.moldNumber);
                 } else {
+                    // 检查是否存在相同编号的模具（防止重复创建）
+                    const duplicateMold = moldsData.find(m => m.moldNumber === moldNumber);
+                    if (duplicateMold) {
+                        console.warn(`模具编号 ${moldNumber} 已存在，跳过创建`);
+                        return false;
+                    }
+                    
                     // 创建新模具记录
                     const newMold = {
                         id: nextMoldId++,
                         moldNumber: moldNumber,
-                        moldName: moldName,
+                        moldName: moldName || '未命名模具',
                         moldType: moldInfo.moldType || '',
                         version: moldInfo.version || '',
                         productName: moldInfo.productName || '',
@@ -1901,10 +2678,11 @@
                         completedDays: calculateCompletedDays(processes),
                         createdAt: new Date().toISOString(),
                         updatedAt: new Date().toISOString(),
-                        processes: JSON.parse(JSON.stringify(processes)) // 深拷贝
+                        processes: JSON.parse(JSON.stringify(processes || [])) // 深拷贝
                     };
                     
                     moldsData.push(newMold);
+                    currentMoldId = newMold.id; // 设置当前编辑的模具ID
                     console.log('创建新模具:', newMold.moldNumber);
                 }
                 
@@ -1935,7 +2713,7 @@
         // 更新侧边栏统计信息
         function updateSidebarStats() {
             const totalMolds = moldsData.length;
-            const activeMolds = moldsData.filter(m => m.status === 'active').length;
+            const activeMolds = moldsData.filter(m => normalizeStatus(m.status) === 'inProgress').length;
             const completedMolds = moldsData.filter(m => m.status === 'completed').length;
             
             // 更新侧边栏显示的统计数据
@@ -1955,16 +2733,22 @@
                 return 'pending';
             }
             
-            const completedCount = processes.filter(p => p.status === 'completed').length;
-            const inProgressCount = processes.filter(p => p.status === 'inProgress').length;
-            const delayedCount = processes.filter(p => p.status === 'delayed').length;
+            // 标准化所有工序状态
+            const normalizedProcesses = processes.map(p => ({
+                ...p,
+                status: normalizeStatus(p.status)
+            }));
             
-            if (completedCount === processes.length) {
+            const completedCount = normalizedProcesses.filter(p => p.status === 'completed').length;
+            const inProgressCount = normalizedProcesses.filter(p => p.status === 'inProgress').length;
+            const delayedCount = normalizedProcesses.filter(p => p.status === 'delayed').length;
+            
+            if (completedCount === normalizedProcesses.length) {
                 return 'completed';
             } else if (delayedCount > 0) {
                 return 'delayed';
             } else if (inProgressCount > 0 || completedCount > 0) {
-                return 'active';
+                return 'inProgress'; // 统一使用inProgress而不是active
             } else {
                 return 'pending';
             }
@@ -2591,11 +3375,40 @@
             attachProcessEvents();
         }
         
-        // 为工序表格元素添加事件监听器 - 增强版
+        // 事件监听器管理器 - 修复内存泄漏问题
+        let eventListeners = new Map(); // 存储事件监听器引用
+        
+        // 清理所有事件监听器
+        function cleanupEventListeners() {
+            eventListeners.forEach((listeners, element) => {
+                listeners.forEach(({ event, handler }) => {
+                    element.removeEventListener(event, handler);
+                });
+            });
+            eventListeners.clear();
+        }
+        
+        // 安全添加事件监听器
+        function addEventListenerSafe(element, event, handler) {
+            if (!eventListeners.has(element)) {
+                eventListeners.set(element, []);
+            }
+            
+            // 移除可能存在的旧监听器
+            element.removeEventListener(event, handler);
+            
+            // 添加新监听器
+            element.addEventListener(event, handler);
+            eventListeners.get(element).push({ event, handler });
+        }
+        
+        // 为工序表格元素添加事件监听器 - 修复版（防止内存泄漏）
         function attachProcessEvents() {
+            // 先清理旧的事件监听器
+            cleanupEventListeners();
             // 工序名称输入 - 智能建议和自动保存
             document.querySelectorAll('.process-name').forEach(input => {
-                input.addEventListener('change', e => {
+                const changeHandler = (e) => {
                     const processId = parseInt(e.target.dataset.id);
                     const process = processData.find(p => p.id === processId);
                     if (process) {
@@ -2610,23 +3423,28 @@
                         autoSaveWithSync();
                         showNotification(`工序名称已更新为"${process.name}"`, 'info');
                     }
-                });
+                };
                 
-                // 添加智能提示功能
-                input.addEventListener('input', e => {
+                const inputHandler = (e) => {
                     showProcessSuggestions(e.target);
-                });
+                };
+                
+                addEventListenerSafe(input, 'change', changeHandler);
+                addEventListenerSafe(input, 'input', inputHandler);
             });
             
             // 备注输入
             document.querySelectorAll('.remark').forEach(input => {
-                input.addEventListener('change', e => {
+                const changeHandler = (e) => {
                     const processId = parseInt(e.target.dataset.id);
                     const process = processData.find(p => p.id === processId);
                     if (process) {
                         process.remark = e.target.value;
+                        autoSaveWithSync();
                     }
-                });
+                };
+                
+                addEventListenerSafe(input, 'change', changeHandler);
             });
             
             // 增强日期选择器体验
@@ -3231,46 +4049,26 @@
             return errors;
         }
         
-        // 安全的日期解析函数
+        // 使用统一的工具函数
         function safeParseDate(dateStr) {
-            if (!dateStr) return null;
-            const date = new Date(dateStr);
-            return isNaN(date.getTime()) ? null : date;
+            return Utils.safeParseDate(dateStr);
         }
         
-        // 显示通知
-        function showNotification(message, type = 'info') {
-            let bgColor, textColor, icon;
-            
-            switch (type) {
-                case 'success':
-                    bgColor = 'bg-success';
-                    textColor = 'text-white';
-                    icon = 'fa-check-circle';
-                    break;
-                case 'error':
-                    bgColor = 'bg-danger';
-                    textColor = 'text-white';
-                    icon = 'fa-exclamation-circle';
-                    break;
-                case 'warning':
-                    bgColor = 'bg-warning';
-                    textColor = 'text-white';
-                    icon = 'fa-exclamation-triangle';
-                    break;
-                default:
-                    bgColor = 'bg-primary';
-                    textColor = 'text-white';
-                    icon = 'fa-info-circle';
-            }
-            
-            notification.className = `fixed top-20 right-5 px-6 py-3 rounded-lg shadow-lg transform transition-transform duration-300 flex items-center z-50 ${bgColor} ${textColor}`;
-            notification.innerHTML = `<i class="fa ${icon} mr-2"></i>${message}`;
-            notification.style.transform = 'translateX(0)';
-            
-            setTimeout(() => {
-                notification.style.transform = 'translateX(calc(100% + 20px))';
-            }, 3000);
+        function formatDate(date) {
+            return Utils.formatDate(date);
+        }
+        
+        function formatDateForDisplay(date) {
+            return Utils.formatDateForDisplay(date);
+        }
+        
+        function normalizeStatus(status) {
+            return Utils.normalizeStatus(status);
+        }
+        
+        // 显示通知 - 使用统一的通知管理器
+        function showNotification(message, type = 'info', duration = 3000) {
+            notificationManager.show(message, type, duration);
         }
         
         // ==================== 模具管理功能 ====================
@@ -3282,29 +4080,38 @@
             // 更新导航按钮状态
             document.querySelectorAll('.sidebar-nav-item').forEach(btn => btn.classList.remove('active'));
             
+            // 隐藏所有页面
+            const managementPage = document.getElementById('managementPage');
+            const trackingPage = document.getElementById('trackingPage');
+            
+            if (managementPage) managementPage.classList.remove('active');
+            if (trackingPage) trackingPage.classList.remove('active');
+            
             if (page === 'management') {
-                navManagement.classList.add('active');
-                managementPage.classList.add('active');
-                trackingPage.classList.remove('active');
+                document.getElementById('navManagement').classList.add('active');
+                if (managementPage) managementPage.classList.add('active');
                 renderMoldsList();
-            } else {
-                navTracking.classList.add('active');
-                trackingPage.classList.add('active');
-                managementPage.classList.remove('active');
+            } else if (page === 'tracking') {
+                document.getElementById('navTracking').classList.add('active');
+                if (trackingPage) trackingPage.classList.add('active');
             }
         }
         
-        // 设置模具管理事件监听器
+        // 设置模具管理事件监听器 - 使用事件管理器
         function setupMoldManagementListeners() {
-            if (createNewMold) createNewMold.addEventListener('click', createNewMoldProject);
-            if (refreshMolds) refreshMolds.addEventListener('click', renderMoldsList);
-            if (searchMolds) searchMolds.addEventListener('input', debounce(filterMolds, 300));
-            if (statusFilter) statusFilter.addEventListener('change', filterMolds);
+            if (createNewMold) eventManager.addListener(createNewMold, 'click', createNewMoldProject);
+            if (searchMolds) eventManager.addListener(searchMolds, 'input', debounce(filterMolds, 300));
+            // if (statusFilter) eventManager.addListener(statusFilter, 'change', filterMolds); // 下拉状态筛选已移除
             
-            // 快速筛选按钮
-            document.addEventListener('click', (e) => {
+            // 快速筛选按钮 - 使用事件委托
+            eventManager.addListener(document, 'click', (e) => {
                 if (e.target.classList.contains('quick-filter')) {
                     handleQuickFilter(e.target.dataset.filter);
+                }
+                
+                // 重置筛选按钮
+                if (e.target.id === 'resetFilters' || e.target.closest('#resetFilters')) {
+                    resetAllFilters();
                 }
                 
                 // 空状态按钮
@@ -3314,34 +4121,107 @@
             });
         }
         
-        // 更新模具统计数据
+        // 更新模具统计数据 - 增强版
         function updateMoldsStatistics() {
             const totalCount = moldsData.length;
-            const activeCount = moldsData.filter(m => m.status === 'active').length;
-            const completedCount = moldsData.filter(m => m.status === 'completed').length;
-            const pendingCount = moldsData.filter(m => m.status === 'pending').length;
+            const activeCount = moldsData.filter(m => normalizeStatus(m.status) === 'active').length;
+            const completedCount = moldsData.filter(m => normalizeStatus(m.status) === 'completed').length;
+            const pendingCount = moldsData.filter(m => normalizeStatus(m.status) === 'pending').length;
             
-            // 计算即将试模的数量（试模日期在未来7天内）
-            const now = new Date();
-            const nextWeek = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000);
-            const upcomingTestCount = moldsData.filter(mold => {
-                if (!mold.testDate) return false;
-                const testDate = new Date(mold.testDate);
-                return testDate >= now && testDate <= nextWeek;
-            }).length;
+            // 计算即将试模的数量（优化逻辑）
+            const upcomingTestMolds = getUpcomingTestMolds();
+            const upcomingTestCount = upcomingTestMolds.length;
+            
+            // 计算逾期的数量
+            const overdueMolds = getOverdueMolds();
+            const overdueCount = overdueMolds.length;
             
             // 更新统计显示
-            const totalElement = document.getElementById('totalMoldsCount');
+            // const totalElement = document.getElementById('totalMoldsCount'); // 已移除“总计”显示
             const activeElement = document.getElementById('activeMoldsCount');
             const completedElement = document.getElementById('completedMoldsCount');
             const pendingElement = document.getElementById('pendingMoldsCount');
             const upcomingTestElement = document.getElementById('upcomingTestCount');
+            const overdueElement = document.getElementById('overdueCount');
             
-            if (totalElement) totalElement.textContent = totalCount;
-            if (activeElement) activeElement.textContent = activeCount;
-            if (completedElement) completedElement.textContent = completedCount;
-            if (pendingElement) pendingElement.textContent = pendingCount;
-            if (upcomingTestElement) upcomingTestElement.textContent = upcomingTestCount;
+            // if (totalElement) totalElement.textContent = totalCount;
+            // 顶部右侧状态展示已移除，不再更新计数
+            
+            // 更新即将试模数量，带动画效果
+            if (upcomingTestElement) {
+                const currentCount = parseInt(upcomingTestElement.textContent) || 0;
+                if (currentCount !== upcomingTestCount) {
+                    animateCountChange(upcomingTestElement, currentCount, upcomingTestCount);
+                }
+                
+                // 根据数量调整样式
+                const parentBtn = upcomingTestElement.closest('.quick-filter');
+                if (parentBtn) {
+                    if (upcomingTestCount > 0) {
+                        upcomingTestElement.classList.remove('bg-gray-100', 'text-gray-600');
+                        upcomingTestElement.classList.add('bg-orange-100', 'text-orange-600');
+                        parentBtn.classList.add('pulse-animation');
+                    } else {
+                        upcomingTestElement.classList.remove('bg-orange-100', 'text-orange-600');
+                        upcomingTestElement.classList.add('bg-gray-100', 'text-gray-600');
+                        parentBtn.classList.remove('pulse-animation');
+                    }
+                }
+            }
+            
+            // 更新逾期数量，带动画效果
+            if (overdueElement) {
+                const currentCount = parseInt(overdueElement.textContent) || 0;
+                if (currentCount !== overdueCount) {
+                    animateCountChange(overdueElement, currentCount, overdueCount);
+                }
+                
+                // 根据数量调整样式
+                const parentBtn = overdueElement.closest('.quick-filter');
+                if (parentBtn) {
+                    if (overdueCount > 0) {
+                        overdueElement.classList.remove('bg-gray-100', 'text-gray-600');
+                        overdueElement.classList.add('bg-red-100', 'text-red-600');
+                        parentBtn.classList.add('urgent-pulse');
+                    } else {
+                        overdueElement.classList.remove('bg-red-100', 'text-red-600');
+                        overdueElement.classList.add('bg-gray-100', 'text-gray-600');
+                        parentBtn.classList.remove('urgent-pulse');
+                    }
+                }
+            }
+            
+            // 更新筛选结果计数
+            const filteredCountElement = document.getElementById('filteredCount');
+            if (filteredCountElement) {
+                const currentFiltered = currentFilteredMolds || moldsData;
+                filteredCountElement.textContent = currentFiltered.length;
+            }
+        }
+        
+        // 数字变化动画
+        function animateCountChange(element, fromValue, toValue) {
+            const duration = 500;
+            const startTime = performance.now();
+            
+            function animate(currentTime) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                
+                // 使用缓动函数
+                const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+                const currentValue = Math.round(fromValue + (toValue - fromValue) * easeOutQuart);
+                
+                element.textContent = currentValue;
+                
+                if (progress < 1) {
+                    requestAnimationFrame(animate);
+                } else {
+                    element.textContent = toValue;
+                }
+            }
+            
+            requestAnimationFrame(animate);
         }
         
         // 获取状态徽章样式类
@@ -3369,89 +4249,122 @@
             });
         }
         
-        // 处理快速筛选
+        // 处理快速筛选 - 增强版
         function handleQuickFilter(filterType) {
             // 移除其他按钮的激活状态
             document.querySelectorAll('.quick-filter').forEach(btn => {
-                btn.classList.remove('bg-primary', 'text-white');
-                btn.classList.add('bg-gray-100', 'text-gray-600');
+                btn.classList.remove('bg-blue-500', 'text-white', 'bg-green-500', 'bg-purple-500', 'bg-orange-500', 'bg-yellow-500', 'bg-red-500');
+                btn.classList.add('bg-gray-100', 'text-gray-700');
             });
             
-            // 激活当前按钮
-            event.target.classList.remove('bg-gray-100', 'text-gray-600');
-            event.target.classList.add('bg-primary', 'text-white');
-            
-            const now = new Date();
-            let filteredMolds = [...moldsData];
-            
-            switch (filterType) {
-                case 'today':
-                    // 今日更新的模具
-                    const today = now.toISOString().split('T')[0];
-                    filteredMolds = moldsData.filter(mold => {
-                        const updatedDate = new Date(mold.updatedAt).toISOString().split('T')[0];
-                        return updatedDate === today;
-                    });
-                    break;
-                    
-                case 'week':
-                    // 本周创建的模具
-                    const weekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
-                    filteredMolds = moldsData.filter(mold => {
-                        const createdDate = new Date(mold.createdAt);
-                        return createdDate >= weekAgo;
-                    });
-                    break;
-                    
-                case 'completed':
-                    // 全部完成的模具
-                    filteredMolds = moldsData.filter(mold => {
-                        return mold.status === 'completed';
-                    });
-                    break;
-                    
-                case 'urgent':
-                    // 即将试模的模具（试模日期在未来7天内）
-                    const nextWeek = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000);
-                    filteredMolds = moldsData.filter(mold => {
-                        if (!mold.testDate) return false;
-                        const testDate = new Date(mold.testDate);
-                        return testDate >= now && testDate <= nextWeek;
-                    });
-                    break;
-                    
-                default:
-                    // 重置筛选
-                    document.querySelectorAll('.quick-filter').forEach(btn => {
-                        btn.classList.remove('bg-primary', 'text-white');
-                        btn.classList.add('bg-gray-100', 'text-gray-600');
-                    });
-                    break;
+            // 激活当前按钮并设置对应颜色
+            const currentBtn = event.target.closest('.quick-filter');
+            if (currentBtn) {
+                currentBtn.classList.remove('bg-gray-100', 'text-gray-700');
+                
+                // 根据筛选类型设置不同颜色
+                switch (filterType) {
+                    case 'today':
+                        currentBtn.classList.add('bg-blue-500', 'text-white');
+                        break;
+                    case 'recent':
+                        currentBtn.classList.add('bg-green-500', 'text-white');
+                        break;
+                    case 'week':
+                        currentBtn.classList.add('bg-purple-500', 'text-white');
+                        break;
+                    case 'active':
+                        currentBtn.classList.add('bg-orange-500', 'text-white');
+                        break;
+                    case 'completed':
+                        currentBtn.classList.add('bg-green-500', 'text-white');
+                        break;
+                    case 'urgent':
+                        currentBtn.classList.add('bg-yellow-500', 'text-white');
+                        break;
+                    case 'overdue':
+                        currentBtn.classList.add('bg-red-500', 'text-white');
+                        break;
+                    default:
+                        currentBtn.classList.add('bg-blue-500', 'text-white');
+                }
             }
             
-            // 临时设置筛选结果并渲染
-            const originalData = moldsData;
-            moldsData = filteredMolds;
-            renderMoldsList();
-            moldsData = originalData;
+            // 设置全局筛选状态
+            currentQuickFilter = filterType;
+            
+            // 重新筛选和渲染
+            filterMolds();
             
             // 显示筛选结果提示
-            if (filteredMolds.length === 0) {
-                showNotification(`没有找到符合"${getFilterName(filterType)}"条件的模具`, 'info');
+            const filteredCount = currentFilteredMolds ? currentFilteredMolds.length : 0;
+            const filterName = getFilterName(filterType);
+            
+            if (filteredCount === 0) {
+                showNotification(`没有找到符合"${filterName}"条件的模具`, 'info');
             } else {
-                showNotification(`找到 ${filteredMolds.length} 个符合"${getFilterName(filterType)}"条件的模具`, 'success');
+                showNotification(`找到 ${filteredCount} 个符合"${filterName}"条件的模具`, 'success');
             }
         }
         
-        // 获取筛选名称
+        // 获取筛选名称 - 增强版
         function getFilterName(filterType) {
             switch (filterType) {
                 case 'today': return '今日更新';
+                case 'recent': return '最近3天';
                 case 'week': return '本周创建';
-                case 'completed': return '全部完成';
+                case 'active': return '进行中';
+                case 'completed': return '已完成';
                 case 'urgent': return '即将试模';
+                case 'overdue': return '已逾期';
                 default: return '全部';
             }
+        }
+        
+        // 重置所有筛选
+        function resetAllFilters() {
+            // 重置快速筛选按钮状态
+            document.querySelectorAll('.quick-filter').forEach(btn => {
+                btn.classList.remove('bg-blue-500', 'text-white', 'bg-green-500', 'bg-purple-500', 'bg-orange-500', 'bg-yellow-500', 'bg-red-500');
+                btn.classList.add('bg-gray-100', 'text-gray-700');
+            });
+            
+            // 重置搜索框
+            if (searchMolds) searchMolds.value = '';
+            
+            // 重置状态筛选器（下拉已移除，保留此处为空操作以兼容旧逻辑）
+            // const statusFilter = document.getElementById('statusFilter'); // 已移除下拉状态筛选
+            // if (statusFilter) statusFilter.value = '';
+            
+            // 重置全局状态
+            currentQuickFilter = null;
+            currentFilteredMolds = null;
+            
+            // 清除搜索结果提示
+            const searchResultsInfo = document.getElementById('searchResultsInfo');
+            if (searchResultsInfo) searchResultsInfo.innerHTML = '';
+            
+            // 重新渲染
+            renderMoldsList();
+            
+            showNotification('已重置所有筛选条件', 'info');
+        }
+        
+        // 初始化筛选功能
+        function initializeFilterSystem() {
+            // 更新统计数据
+            updateMoldsStatistics();
+            
+            // 设置定时更新
+            setInterval(() => {
+                updateMoldsStatistics();
+            }, 30000); // 每30秒更新一次统计数据
+        }
+        
+        // 重置所有筛选条件
+        function resetAllFilters() {
+            // 直接刷新页面，重置所有状态
+            window.location.reload();
         }
         
         // 加载模具数据
@@ -3900,20 +4813,7 @@
                                 </div>
                             </div>
                             
-                            <!-- 进度条 -->
-                            <div class="space-y-2">
-                                <div class="flex justify-between items-center">
-                                    <span class="text-xs text-gray-600">完成进度</span>
-                                    <span class="text-xs font-semibold text-gray-900">${progress}%</span>
-                                </div>
-                                <div class="w-full bg-gray-200 rounded-full h-2 overflow-hidden">
-                                    <div class="bg-gradient-to-r ${progressColor} h-2 rounded-full transition-all duration-500 ease-out" 
-                                         style="width: ${progress}%"></div>
-                                </div>
-                                <div class="text-xs text-gray-500 text-center">
-                                    ${mold.processes ? mold.processes.filter(p => p.status === 'completed').length : 0}/${mold.processes ? mold.processes.length : 0} 工序完成
-                                </div>
-                            </div>
+                            <!-- 移除进度条显示 -->
                         </div>
                         
                         <!-- 优化操作按钮 -->
@@ -4134,53 +5034,290 @@
             };
         }
         
-        // 获取过滤后的模具列表
+        // 获取过滤后的模具列表 - 增强版
         function getFilteredMolds() {
             let filtered = [...moldsData];
             
-            // 搜索过滤
-            const searchTerm = searchMolds.value.toLowerCase().trim();
+            // 增强的搜索过滤 - 支持多关键词和更多字段（不再通过搜索栏匹配状态，避免与筛选栏重复）
+            const searchTerm = searchMolds ? searchMolds.value.toLowerCase().trim() : '';
             if (searchTerm) {
-                filtered = filtered.filter(mold => 
-                    mold.moldNumber.toLowerCase().includes(searchTerm) ||
-                    mold.moldName.toLowerCase().includes(searchTerm) ||
-                    mold.productName.toLowerCase().includes(searchTerm)
-                );
+                // 过滤掉状态类关键词，状态统一交由快速筛选处理
+                const statusKeywords = ['待开始','进行中','已完成','已延迟','pending','active','inprogress','completed','delayed'];
+                const searchKeywords = searchTerm
+                    .split(/\s+/)
+                    .filter(keyword => keyword.length > 0 && !statusKeywords.includes(keyword));
+                
+                if (searchKeywords.length > 0) {
+                    filtered = filtered.filter(mold => {
+                        const searchableText = [
+                            mold.moldNumber || '',
+                            mold.moldName || '',
+                            mold.productName || '',
+                            mold.material || '',
+                            mold.moldType || '',
+                            mold.version || '',
+                            mold.remark || '',
+                            // 状态文本不参与搜索，避免与筛选栏重复
+                            // 添加日期搜索支持
+                            formatDisplayDate(mold.moldOpenNotice) || '',
+                            formatDisplayDate(mold.testDate) || '',
+                            formatDisplayDate(mold.createdAt) || '',
+                            // 添加穴数搜索
+                            (mold.cavityCount || '').toString()
+                        ].join(' ').toLowerCase();
+                        
+                        // 所有关键词都必须匹配
+                        return searchKeywords.every(keyword => 
+                            searchableText.includes(keyword)
+                        );
+                    });
+                }
             }
             
-            // 状态过滤
-            const statusValue = statusFilter.value;
-            if (statusValue) {
-                filtered = filtered.filter(mold => mold.status === statusValue);
+            // 状态过滤（下拉已移除，改由快速筛选控制 currentQuickFilter）
+            // const statusValue = statusFilter ? statusFilter.value : '';
+            // if (statusValue) {
+            //     filtered = filtered.filter(mold => normalizeStatus(mold.status) === statusValue);
+            // }
+            
+            // 如果有快速筛选激活，应用快速筛选逻辑
+            if (currentQuickFilter && currentQuickFilter !== 'all') {
+                filtered = applyQuickFilterLogic(filtered, currentQuickFilter);
             }
             
-            // 按更新时间倒序排列
-            return filtered.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
+            // 智能排序：优先级排序
+            return filtered.sort((a, b) => {
+                // 1. 逾期的排在前面
+                const aOverdue = isOverdue(a);
+                const bOverdue = isOverdue(b);
+                if (aOverdue !== bOverdue) return bOverdue - aOverdue;
+                
+                // 2. 即将试模的排在前面
+                const aUpcoming = isUpcomingTest(a);
+                const bUpcoming = isUpcomingTest(b);
+                if (aUpcoming !== bUpcoming) return bUpcoming - aUpcoming;
+                
+                // 3. 按更新时间倒序
+                return new Date(b.updatedAt) - new Date(a.updatedAt);
+            });
         }
         
-        // 过滤模具
+        // 增强的过滤模具函数
         function filterMolds() {
+            const filtered = getFilteredMolds();
+            currentFilteredMolds = filtered;
             renderMoldsList();
+            
+            // 更新筛选结果显示
+            updateFilterResultsDisplay(filtered);
+        }
+        
+        // 获取状态显示文本
+        function getStatusDisplayText(status) {
+            const statusMap = {
+                'pending': '待开始',
+                'active': '进行中',
+                'completed': '已完成',
+                'paused': '暂停',
+                'cancelled': '已取消',
+                'delayed': '延期'
+            };
+            return statusMap[normalizeStatus(status)] || status;
+        }
+        
+        // 应用快速筛选逻辑
+        function applyQuickFilterLogic(molds, filterType) {
+            const now = new Date();
+            
+            switch (filterType) {
+                case 'today':
+                    // 今日更新的模具
+                    const today = now.toISOString().split('T')[0];
+                    return molds.filter(mold => {
+                        const updatedDate = new Date(mold.updatedAt).toISOString().split('T')[0];
+                        return updatedDate === today;
+                    });
+                    
+                case 'week':
+                    // 本周创建的模具
+                    const weekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+                    return molds.filter(mold => {
+                        const createdDate = new Date(mold.createdAt);
+                        return createdDate >= weekAgo;
+                    });
+                    
+                case 'recent':
+                    // 最近3天创建的模具
+                    const threeDaysAgo = new Date(now.getTime() - 3 * 24 * 60 * 60 * 1000);
+                    return molds.filter(mold => {
+                        const createdDate = new Date(mold.createdAt);
+                        return createdDate >= threeDaysAgo;
+                    });
+                    
+                case 'completed':
+                    // 全部完成的模具
+                    return molds.filter(mold => normalizeStatus(mold.status) === 'completed');
+                    
+                case 'active':
+                    // 进行中的模具（标准化后为 inProgress）
+                    return molds.filter(mold => normalizeStatus(mold.status) === 'inProgress');
+                    
+                case 'urgent':
+                    // 即将试模的模具（优化逻辑）
+                    return getUpcomingTestMolds(molds);
+                    
+                case 'overdue':
+                    // 逾期的模具
+                    return getOverdueMolds(molds);
+                    
+                default:
+                    return molds;
+            }
+        }
+        
+        // 获取即将试模的模具（优化逻辑 - 基于下一工序）
+        function getUpcomingTestMolds(molds = moldsData) {
+            return molds.filter(mold => {
+                // 排除已完成的模具
+                if (normalizeStatus(mold.status) === 'completed') return false;
+                
+                // 检查是否有工序数据
+                if (!mold.processes || mold.processes.length === 0) return false;
+                
+                // 查找下一个未完成的工序
+                const nextProcess = mold.processes.find(process => 
+                    normalizeStatus(process.status) !== 'completed'
+                );
+                
+                // 如果下一工序名称包含"试模"，则认为即将试模
+                if (nextProcess && nextProcess.name) {
+                    return nextProcess.name.includes('试模');
+                }
+                
+                return false;
+            }).sort((a, b) => {
+                // 按更新时间排序，最近更新的在前
+                return new Date(b.updatedAt) - new Date(a.updatedAt);
+            });
+        }
+        
+        // 获取逾期的模具
+        function getOverdueMolds(molds = moldsData) {
+            const now = new Date();
+            
+            return molds.filter(mold => isOverdue(mold))
+                .sort((a, b) => {
+                    // 按逾期时间排序，逾期最久的在前
+                    const aOverdueTime = getOverdueTime(a);
+                    const bOverdueTime = getOverdueTime(b);
+                    return bOverdueTime - aOverdueTime;
+                });
+        }
+        
+        // 判断模具是否逾期
+        function isOverdue(mold) {
+            const now = new Date();
+            
+            // 检查试模日期是否逾期
+            if (mold.testDate) {
+                const testDate = new Date(mold.testDate);
+                if (!isNaN(testDate.getTime()) && testDate < now && normalizeStatus(mold.status) !== 'completed') {
+                    return true;
+                }
+            }
+            
+            return false;
+        }
+        
+        // 判断模具是否即将试模（基于下一工序）
+        function isUpcomingTest(mold) {
+            // 排除已完成的模具
+            if (normalizeStatus(mold.status) === 'completed') return false;
+            
+            // 检查是否有工序数据
+            if (!mold.processes || mold.processes.length === 0) return false;
+            
+            // 查找下一个未完成的工序
+            const nextProcess = mold.processes.find(process => 
+                normalizeStatus(process.status) !== 'completed'
+            );
+            
+            // 如果下一工序名称包含"试模"，则认为即将试模
+            if (nextProcess && nextProcess.name) {
+                return nextProcess.name.includes('试模');
+            }
+            
+            return false;
+        }
+        
+        // 获取逾期时间（毫秒）
+        function getOverdueTime(mold) {
+            const now = new Date();
+            let maxOverdue = 0;
+            
+            if (mold.testDate) {
+                const testDate = new Date(mold.testDate);
+                if (!isNaN(testDate.getTime()) && testDate < now) {
+                    maxOverdue = Math.max(maxOverdue, now - testDate);
+                }
+            }
+            
+            if (mold.moldOpenNotice) {
+                const noticeDate = new Date(mold.moldOpenNotice);
+                if (!isNaN(noticeDate.getTime()) && noticeDate < now) {
+                    maxOverdue = Math.max(maxOverdue, now - noticeDate);
+                }
+            }
+            
+            return maxOverdue;
+        }
+        
+        // 更新筛选结果显示
+        function updateFilterResultsDisplay(filteredMolds) {
+            const filteredCountElement = document.getElementById('filteredCount');
+            const searchTerm = searchMolds ? searchMolds.value.toLowerCase().trim() : '';
+            
+            if (filteredCountElement) {
+                filteredCountElement.textContent = filteredMolds.length;
+            }
+            
+            // 显示搜索结果提示
+            if (searchTerm && filteredMolds.length === 0) {
+                showNotification(`未找到包含 "${searchTerm}" 的模具项目`, 'warning');
+            } else if (searchTerm && filteredMolds.length > 0) {
+                showNotification(`找到 ${filteredMolds.length} 个包含 "${searchTerm}" 的项目`, 'success');
+            }
+            
+            // 更新空状态显示
+            const emptyState = document.getElementById('emptyState');
+            const moldsGrid = document.getElementById('moldsGrid');
+            
+            if (filteredMolds.length === 0) {
+                if (emptyState) emptyState.classList.remove('hidden');
+                if (moldsGrid) moldsGrid.classList.add('hidden');
+            } else {
+                if (emptyState) emptyState.classList.add('hidden');
+                if (moldsGrid) moldsGrid.classList.remove('hidden');
+            }
         }
         
         // 获取状态样式类
         function getStatusClass(status) {
-            switch (status) {
-                case 'active': return 'status-active';
+            const normalizedStatus = normalizeStatus(status);
+            switch (normalizedStatus) {
+                case 'inProgress': return 'status-active';
                 case 'completed': return 'status-completed';
                 case 'pending': return 'status-pending';
+                case 'delayed': return 'status-delayed';
                 default: return 'status-pending';
             }
         }
         
         // 获取状态文本
         function getStatusText(status) {
-            switch (status) {
-                case 'active': return '进行中';
-                case 'completed': return '已完成';
-                case 'pending': return '待开始';
-                default: return '待开始';
-            }
+            const normalizedStatus = normalizeStatus(status);
+            const statusOption = statusOptions.find(s => s.id === normalizedStatus);
+            return statusOption ? statusOption.name : '待开始';
         }
         
         // 为模具卡片添加事件监听器
@@ -4731,9 +5868,35 @@
                 initColumnResizer();
             }, 100);
         };
+        
+        // 重新渲染表格后重新初始化列宽调整功能（修复内存泄漏）
+        const originalRenderProcessTableFixed = renderProcessTable;
+        renderProcessTable = function() {
+            // 清理旧的事件监听器
+            cleanupEventListeners();
+            
+            originalRenderProcessTableFixed();
+            setTimeout(() => {
+                initColumnResizer();
+            }, 100);
+        };
+        
+        // 页面卸载时清理事件监听器
+        eventManager.addListener(window, 'beforeunload', () => {
+            eventManager.cleanup();
+        });
+   
+        // 获取状态配置
+        function getStatusConfig(status) {
+            const configs = {
+                'pending': { name: '未开始', class: 'bg-pending/20 text-pending border border-pending/30' },
+                'inProgress': { name: '进行中', class: 'bg-warning/20 text-warning border border-warning/30' },
+                'completed': { name: '已完成', class: 'bg-success/20 text-success border border-success/30' },
+                'delayed': { name: '已延迟', class: 'bg-danger/20 text-danger border border-danger/30' }
+            };
+            return configs[status] || configs['pending'];
+        }
     </script>
 
-
 </body>
-</html>
 </html>
